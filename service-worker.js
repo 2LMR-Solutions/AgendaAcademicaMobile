@@ -1,4 +1,4 @@
-const CACHE_NAME = 'todo-list-pwa-v2';
+const CACHE_NAME = 'agenda-academica-v1';
 const urlsToCache = [
   '/',
   '/index.html',
