@@ -81,6 +81,25 @@ class Usuario {
         this.nome_de_usuario = nome_de_usuario;
       }
 
+      static login(nomeDeUsuario, senha){
+        
+        // const nomeDeUsuario = document.getElementById('nomeDeUsuario').value;
+        // const senha = document.getElementById('senha').value;
+    
+        // Verifica se os dados estão preenchidos
+        if (nomeDeUsuario && senha) {
+            const usuario = Usuario.load(nomeDeUsuario);
+    
+            if (usuario && usuario.#senha === senha) {
+                alert('Login bem-sucedido!');
+                // Redirecionar
+            } else {
+                alert('Nome de usuário ou senha incorretos.');
+            }
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
+}
   }
   
   export { Usuario };
