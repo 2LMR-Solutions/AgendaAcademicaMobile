@@ -5,7 +5,7 @@
     font-family: "Outfit", sans-serif;
 }
 
-header{
+/*header{
 	position: relative;
 	left: 0;
 	top: 0;
@@ -19,7 +19,7 @@ header h4{
 	left: 10%;
 	bottom: 1rem;
 	font-size: 1.6rem;
-}
+}*/
 
 footer{
 	position: relative;
@@ -97,3 +97,26 @@ footer h4{
 	opacity: 0;
 	transition: ease-in-out 0.5s;
 }
+
+/*Link para ícone https://fonts.google.com/icons*/
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+header {
+    background: linear-gradient(180deg, rgba(176, 30, 214, 1) 0%, rgb(131, 39, 154) 100%);
+}
+
+.text-header {
+    color: #FFF !important;
+}
+
+.border-rounded-bottom{
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.ml-md-6{
+    margin-left: 30px;
+}
+
