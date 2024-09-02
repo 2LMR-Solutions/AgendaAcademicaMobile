@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Acadêmica</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/src/public/style.css">
-    <link rel="icon" href="/src/public/assets/logoIconBranco.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/public/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <title>Agenda Acadêmica</title>
 </head>
 
 <body>
@@ -22,18 +36,61 @@
             <span class="logo logo-img"><img src="/src/public/assets/logoTransparenteBranco.png"></span>
         </h1>
     </div>
-    <header>
-        <h4>Agenda Acadêmica</h4>
+    <header class="text-header border-rounded-bottom">
+
+        <section>
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-6 ml-md-6">
+                        <h1 class="display-4 fw-bold">Bem vindo, <br> Usuário</h1>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-center">
+                        <img src="UI-face-1.jpg" class="rounded-circle" alt="img" width="60%" height="100%">
+                    </div>
+                </div>
+            </div>
+        </section>
     </header>
-    <div class="container">
-        <div class="teste1">coluna 1</div>
-        <div class="teste2">coluna 2</div>
-        <div class="teste3">coluna 3</div>
-    </div>
-        <div class="container-sm">100% wide until small breakpoint</div>
-        <div class="container-md">100% wide until medium breakpoint</div>
-        <div class="container-lg">100% wide until large breakpoint</div>
-        <div class="container-xl">100% wide until extra large breakpoint</div>
+
+    <section class="container">
+        <div class="row g-5">
+            <div class="col-sm-12 col-md-12">
+                <md-list>
+                    <md-list-item>
+                        Atividades
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item>
+                        Atividade1
+                    </md-list-item>
+                    <md-list-item>
+                        Atividade2
+                    </md-list-item>
+                    <md-list-item type="link" href="https://google.com/" target="_blank">
+                        <div slot="headline">Atividade3</div>
+                        <div slot="supporting-text">This will link you out in a new tab</div>
+                        <md-icon slot="end"> <span class="material-icons md-18">
+                                arrow_forward
+                            </span> </md-icon>
+                    </md-list-item>
+                </md-list>
+                <div class="position-absolute end-0">
+                    <md-filled-icon-button>
+                        <md-icon><span class="material-icons">
+                                add
+                            </span></md-icon>
+                    </md-filled-icon-button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--<section class="container">
+          <md-filled-icon-button>
+            <md-icon><span class="material-icons">
+                add
+                </span></md-icon>
+          </md-filled-icon-button>
+    </section>-->
     <footer>
         <h4>Rodapé</h4>
     </footer>
@@ -47,6 +104,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+</body>
 
 </html>
