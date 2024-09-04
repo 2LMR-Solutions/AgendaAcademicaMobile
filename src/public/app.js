@@ -1,9 +1,9 @@
 import { Splash } from "./views/splash-screen.js";
- import { setProgress } from "./views/graficos.js";
- import { Usuario} from "./models/user_model.js"
- import { Atividade } from "./models/atividade_model.js";
- import { UserAtividade } from "./models/user_atividade_model.js";
- import { cadastro_user } from "./controller/cadastro_user.js";
+import { setProgress } from "./views/graficos.js";
+import { Usuario} from "./models/user_model.js";
+import { Atividade } from "./models/atividade_model.js";
+import { UserAtividade } from "./models/user_atividade_model.js";
+import { cadastro_user } from "./controller/cadastro_user.js";
 
  function updateCharts() {
   setProgress('Grafico1', 75); //para mudar as porcentagens dos graficos tem que mandar o ID do grafico e a porcentagem 
