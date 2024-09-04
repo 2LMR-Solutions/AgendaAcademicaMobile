@@ -1,5 +1,4 @@
-import { Splash, shouldShowSplashScreen, showSplashScreen, updateCharts, delay } from "./views/splash-screen.js";
-import { setProgress } from "./views/graficos.js";
+import { showSplashScreen} from "./views/splash-screen.js";
 import { Usuario} from "./models/user_model.js";
 import { Atividade } from "./models/atividade_model.js";
 import { UserAtividade } from "./models/user_atividade_model.js";
