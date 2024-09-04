@@ -92,7 +92,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd; /* Linha fina entre os elementos */
+    border-bottom: 1px solid #ddd; 
 }
 
 .date {
@@ -208,13 +208,4 @@ footer {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-.task-marker {
-    color: red; /* Cor do marcador */
-    font-size: 20px;
-}
-
-.has-task {
-    border: 2px solid #b521e2; /* Destaca o dia com tarefas */
 }
