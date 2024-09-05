@@ -12,12 +12,35 @@ body {
 
 header {
     background-color: #ededed;
+	color: #c059e0;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     font-weight: 900;
     font-size: 25px;
 }
+
+.opcoes_perfil{
+	margin-top: 50px;
+	font-size: 22px;
+}
+
+hr{
+	color: #b521e2;
+}
+
+.opcao_perfil{
+	margin-top: 18px;
+	 margin-bottom: 18px;
+	 margin-left: 20px;
+	 margin-right: 20px;
+}
+
+.icon{
+	width: 25px;
+	height: 25px;
+}
+
 
 
 /*-------------------------------- footer -----------------------------------*/
