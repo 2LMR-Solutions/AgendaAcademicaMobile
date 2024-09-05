@@ -210,3 +210,9 @@ footer {
     text-decoration: none;
     cursor: pointer;
 }
+
+.BotaoOutraTarefa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
