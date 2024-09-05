@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
             tasksDiv.classList.add('tarefasAgenda');
             if (tasks[`${ano}-${mes + 1}-${i}`]) {
                 tasksDiv.innerHTML = '<span>&#x2605;</span>';
-                dayDiv.addEventListener('click', () => abrirModalTarefas(i));
             }
 
+            dayDiv.addEventListener('click', () => abrirModalTarefas(i));
             dayDiv.appendChild(dateSpan);
             dayDiv.appendChild(tasksDiv);
             grid.appendChild(dayDiv);
@@ -67,7 +67,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const dateStr = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${dia}`;
         const tarefasDoDia = tasks[dateStr] || [];
         const modalBody = document.querySelector("#modalTarefas .modal-body");
-        modalBody.innerHTML = tarefasDoDia.length ? tarefasDoDia.map(tarefa => `<p>${tarefa}</p>`).join('') : '<p>Não há tarefas para este dia.</p>';
+    
+        if (tarefasDoDia.length > 0) {
+            modalBody.innerHTML = tarefasDoDia.map(tarefa => `<p>${tarefa}</p>`).join('') + `
+                <a href="/src/public/views/tela incluir tarefa/IncluirTarefa.html" class="nav-link BotaoOutraTarefa">
+                    <button id="adicionarTarefa" class="btn btn-primary mt-3">Adicionar novas tarefas</button>
+                </a>`;
+        } else {
+            modalBody.innerHTML = '<p>Não há tarefas para este dia.</p>' + `
+                <a href="/src/public/views/tela incluir tarefa/IncluirTarefa.html" class="nav-link BotaoOutraTarefa">
+                    <button id="adicionarTarefa" class="btn btn-primary mt-3">Adicionar tarefa</button>
+                </a>`;
+        }
+
         const modal = document.getElementById("modalTarefas");
         modal.style.display = "block";
     }
@@ -119,6 +131,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    let InicioTouch = 0;
+    let FinalTouch = 0;
+
+    function TratarInicioTouch(event) {
+        InicioTouch = event.changedTouches[0].screenX;
+    }
+
+    function TratarFinalTouch(event) {
+        FinalTouch = event.changedTouches[0].screenX;
+        SwipeTouch();
+    }
+
+    function SwipeTouch() {
+        const swipeDistance = FinalTouch - InicioTouch;
+
+        const swipeThreshold = 50;
+
+        if (swipeDistance > swipeThreshold) {
+            mudarMes(-1);
+        } else if (swipeDistance < -swipeThreshold) {
+            mudarMes(1);
+        }
+    }
+
+    document.addEventListener('touchstart', TratarInicioTouch, false);
+    document.addEventListener('touchend', TratarFinalTouch, false);
     document.getElementById('SetaMesEsquerda').addEventListener('click', () => mudarMes(-1));
     document.getElementById('SetaMesDireita').addEventListener('click', () => mudarMes(1));
     document.getElementById('voltarHoje').addEventListener('click', voltarParaHoje);
