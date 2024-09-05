@@ -1,0 +1,24 @@
+*{
+    background-color: rgb(213, 209, 209);
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.ma {
+    color: rgb(164, 0, 0);
+    /* font-size: 2000px;  */
+  }
+
+.texto_senha{
+    margin-top: 300px;
+    text-align: center;
+    color: rgb(55, 55, 55);
+    font-size: 30px;
+
+}
