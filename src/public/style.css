@@ -1,3 +1,10 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
 .body{
     background-color: white;
     display: flex;
@@ -83,4 +90,57 @@ footer {
 	color: #b521e2;
 	font-size: 35px;
 	z-index: 9999;
+}
+
+
+/* ---------------------------- Splash Screen -------------------------------*/
+
+.SplashScreenIndex{
+	position: fixed;
+	z-index: 1;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100vh;
+	background-color: #b521e2;
+	transition: 1s;
+	z-index: 999997;
+}
+
+.logo-header-Index{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #ffffff;
+	z-index: 999998;
+}
+
+.logoIndex{
+	position: relative;
+	display: inline-block;
+	bottom: -20px;
+	opacity: 0;
+    background-color: transparent;
+	z-index: 999998;
+}
+
+.logo-img-Index{
+    position: fixed;
+    top: -90px;
+	z-index: 999998;
+}
+
+.logoIndex.active{
+	bottom: 0;
+	opacity: 1;
+	transition: ease-in-out 0.5s;
+	z-index: 999998;
+}
+
+.logoIndex.fade{
+	bottom: 0;
+	opacity: 0;
+	transition: ease-in-out 0.5s;
+	z-index: 999998;
 }

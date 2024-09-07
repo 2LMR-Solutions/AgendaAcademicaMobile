@@ -30,20 +30,22 @@
     </script>
     <title>Agenda Acadêmica</title>
 </head>
-<body id="index-page">
-    <!-- <div class="SplashScreen" id="splashScreen">
-        <h1 class="logo-header">
-            <span class="logo">Agenda</span>
-            <span class="logo">Acadêmica</span><br>
-            <span class="logo logo-img"><img src="/src/public/assets/logoTransparenteBrancoFigma.png" width="58" height="61"></span>
+<body id="Initial-page">
+    <div class="SplashScreenTelaInicial" id="SplashScreenTelaInicial">
+        <h1 class="logo-header-Tela-Inicial">
+            <span class="logoTelaInicial" id="BemVindo">Bem {{Vindo}}</span>
+            <span class="logoTelaInicial" id="Usuario">{{Usuario}}</span><br>
         </h1>
-    </div> -->
+    </div>
     <header class="text-header border-rounded-bottom">
         <section>
             <div class="container py-5">
                 <div class="row">
                     <div class="col-6 ml-md-6">
-                        <h1 class="display-6 fw-bold">Bem vindo, <br> {{Usuario}}</h1>
+                        <h1 class="display-6 fw-bold">
+                            <span id="BemVindo">Bem {{Vindo}}</span><br>
+                            <span id="Usuario">{{Usuario}}</span>
+                        </h1>
                         <!-- coloquei as chaves para conseguir mudar depois com o JS -->
                     </div>
                     <div class="col-5 d-flex align-items-center justify-content-center">
