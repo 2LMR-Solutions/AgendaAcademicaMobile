@@ -30,7 +30,7 @@
     </script>
     <title>Agenda Acadêmica</title>
 </head>
-<body>
+<body id="agenda-page">
     <header>
         <div class="container py-3">
             <div class="MesSelecionado">
@@ -40,7 +40,7 @@
                     </span>
                 </div>
                 <div>
-                    <span id="MesSelecionado" class="clickable">{{MesSelecionado}}</span>
+                    <span id="MesSelecionado" class="clickable">Mes</span> <!-- Será preenchido dinamicamente -->
                 </div>
                 <div class="seta">
                     <span class="material-symbols-outlined" id="SetaMesDireita">
@@ -66,7 +66,6 @@
             </div>
         </div>
     </section>
-    
     <div id="modalMesAno" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -98,7 +97,6 @@
             </div>
         </div>
     </div>
-
     <footer>
         <div class="acoes">
             <a href="/src/public/views/tela inicial/telaInicial.html" class="nav-link">
@@ -112,14 +110,10 @@
             </a>
         </div>
     </footer>
-</body>
-
-    <script src="/src/public/views/agenda.js"></script>
-
 
     
-    <script type="module"> import '../../app.js' 
-    </script>
+</body>
+    <script type="module"> import '../../app.js'; </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

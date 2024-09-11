@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     const currentDate = new Date();
     let selectedDate = new Date(currentDate);
@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('tarefas', JSON.stringify(tarefas));
     }
 
-    let tasks = carregarTarefas();
+    
 
     function criarTarefa(nome, dia, mes, ano) {
+        let tasks = carregarTarefas();
         const dateStr = `${ano}-${mes}-${dia}`;
         if (!tasks[dateStr]) {
             tasks[dateStr] = [];
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function renderizarCalendario(data) {
+        let tasks = carregarTarefas();
         const ano = data.getFullYear();
         const mes = data.getMonth();
         const primeiroDiaDoMes = new Date(ano, mes, 1);
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function abrirModalTarefas(dia) {
+        let tasks = carregarTarefas();
         const dateStr = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${dia}`;
         const tarefasDoDia = tasks[dateStr] || [];
         const modalBody = document.querySelector("#modalTarefas .modal-body");
@@ -154,6 +157,18 @@ document.addEventListener("DOMContentLoaded", function() {
             mudarMes(1);
         }
     }
+export function agenda(){
+
+    window.onclick = function(event) {
+        const modalMesAno = document.getElementById("modalMesAno");
+        const modalTarefas = document.getElementById("modalTarefas");
+        if (event.target === modalMesAno) {
+            fecharModalMesAno();
+        }
+        if (event.target === modalTarefas) {
+            fecharModalTarefas();
+        }
+    }
 
     document.addEventListener('touchstart', TratarInicioTouch, false);
     document.addEventListener('touchend', TratarFinalTouch, false);
@@ -166,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#modalTarefas .close").addEventListener("click", fecharModalTarefas);
 
     renderizarCalendario(selectedDate);
-
+}
     //exemplo de como criar uma tarefa, colocar o nome da tarefa e a data, sendo dia, mes , ano
-    // criarTarefa("Tarefa Silvio", 12, 9, 2024);
-});
+    criarTarefa("Tarefa Silvio", 12, 9, 2024);
