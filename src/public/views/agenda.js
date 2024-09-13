@@ -169,7 +169,8 @@ export function agenda(){
             fecharModalTarefas();
         }
     }
-
+    //exemplo de como criar uma tarefa, colocar o nome da tarefa e a data, sendo dia, mes , ano
+    // criarTarefa("Tarefa Silvio", 12, 9, 2024);
     document.addEventListener('touchstart', TratarInicioTouch, false);
     document.addEventListener('touchend', TratarFinalTouch, false);
     document.getElementById('SetaMesEsquerda').addEventListener('click', () => mudarMes(-1));
@@ -182,5 +183,4 @@ export function agenda(){
 
     renderizarCalendario(selectedDate);
 }
-    //exemplo de como criar uma tarefa, colocar o nome da tarefa e a data, sendo dia, mes , ano
-    criarTarefa("Tarefa Silvio", 12, 9, 2024);
+    

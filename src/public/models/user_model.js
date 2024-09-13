@@ -5,11 +5,13 @@ class Usuario {
     #id;
     #nome;
     nome_de_usuario;
+    #sexo;
     #senha;
 
-    constructor(nome, nome_de_usuario, senha) {
+    constructor(nome, nome_de_usuario, sexo, senha) {
       this.#nome = nome;
       this.nome_de_usuario = nome_de_usuario;
+      this.#sexo = sexo;
       this.#senha = senha;
   
       if (Usuario.exists(nome_de_usuario)) {
@@ -81,6 +83,16 @@ class Usuario {
         this.nome_de_usuario = nome_de_usuario;
       }
 
+      setSenha(senha){
+        this.#senha = senha;
+      }
+      getSexo(){
+        return this.#sexo;
+      }
+
+      setSexo(sexo){
+        this.#sexo = sexo 
+      }
       static login(nomeDeUsuario, senha){
         
         // const nomeDeUsuario = document.getElementById('nomeDeUsuario').value;
