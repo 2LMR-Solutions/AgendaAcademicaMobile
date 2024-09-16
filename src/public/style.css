@@ -5,75 +5,198 @@
     font-family: "Outfit", sans-serif;
 }
 
-.body{
-    background-color: white;
-    display: flex;
-    align-items: center;
+/*Link para ícone https://fonts.google.com/icons*/
+body {
+    font-family: "Roboto", sans-serif;
 }
 
-.cabecalho{
-    background-color: #b521e2;
-    color: whitesmoke;
-    padding: 23px 10px 10px 23px;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-left: 2.5px;
-    margin-right: 2.5px;
-
+header {
+    background: linear-gradient(180deg, rgb(187, 53, 221) 0%, rgb(154, 50, 180) 100%);
+	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25);
 }
 
-.quadrado{
-    background-color: #dcb5e6;
-    border-radius: 20px;
-    /* position: relative; */
-    justify-content: center;
-    align-items: center;
-    padding: 100px 50px;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    
+.text-header {
+    color: #FFF !important;
 }
 
-
-h1[id="titulo"]{
-    color: whitesmoke;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    margin-top: 40px;
-    margin-bottom: 60px;
-    font-size: 45px;
-    font-weight: bold;
-    white-space: nowrap;
-    text-align: center;
+.border-rounded-bottom{
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
-.BotaoEntrar{
-    display: flex;
-	border-radius: 25px;
-	padding: 5px 105px 5px 105px;
-	background-color: #b521e2;
-	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-	border-style: none;
-	color: #FFF;
-	margin-top: 30px;
-    align-items: center;
+.ml-md-6{
+    margin-left: 30px;
 }
-
-.tamanho{
-    margin-left: 3px;
-    margin-right: 3px;
-    margin-bottom: 10px;
-}
-
-
-/*-------------------------------- footer -----------------------------------*/
 
 footer {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 100%; 
 }
+
+/* ---------------------------- Splash Screen -------------------------------*/
+
+.SplashScreen{
+	position: fixed;
+	z-index: 1;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100vh;
+	background-color: #b521e2;
+	transition: 1s;
+	z-index: 999997;
+}
+
+.logo-header{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #ffffff;
+	z-index: 999998;
+}
+
+.logo{
+	position: relative;
+	display: inline-block;
+	bottom: -20px;
+	opacity: 0;
+    background-color: transparent;
+	z-index: 999998;
+}
+
+.logo-img{
+    position: fixed;
+    top: -90px;
+	z-index: 999998;
+}
+
+.logo.active{
+	bottom: 0;
+	opacity: 1;
+	transition: ease-in-out 0.5s;
+	z-index: 999998;
+}
+
+.logo.fade{
+	bottom: 0;
+	opacity: 0;
+	transition: ease-in-out 0.5s;
+	z-index: 999998;
+}
+
+/*-------------------------------- graficos e porcentagem ------------------------------*/
+
+.progress-circle {
+    position: relative;
+    width: 130px;
+    height: 130px;
+}
+
+.circular-chart {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); 
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #a09fa063; 
+    stroke-width: 3.8;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 3.8;
+    stroke-linecap: round; 
+    stroke: #3f28b6;
+    stroke-dasharray: 100, 100; 
+    transition: stroke-dashoffset 0.6s ease-in-out; 
+}
+
+.percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #3f28b6;
+}
+
+
+/*----------------------- tabela ------------------------*/
+
+.IconeMais{
+	margin-top: -15px;
+	height: 45px;
+	width: 45px;
+	left: 75%;
+	color: #ffffff;
+	background-color: #b521e2;
+	border-radius: 25px;
+	padding: 11px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.Tabela{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+/*------------------------------------- relatorio semanal ------------------------------------------*/
+
+.GraficosRelatorioSemanal{
+	display: flex;
+	/* justify-content: space-around; */
+	justify-content: center;
+	align-items: center;
+	margin-top: 5px;
+	background-color: #b7b2b834;
+	height: 200px;
+	border-radius: 15px;
+	height: fit-content;
+	width: 100vw;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 5px;
+	padding-top: 10px;
+}
+
+.RelatorioSemanal{
+	margin-bottom: 60px;
+	width: 100vw;
+}
+
+.RelatorioSemanal h2{
+	color: #b521e2;
+	margin-top: 40px;
+	margin-left: 10%;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.BotaoVerMeuProgresso{
+	display: flex;
+	border-radius: 25px;
+	padding: 5px 9px 5px 9px;
+	background-color: #b521e2;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+	border-style: none;
+	color: #FFF;
+	margin-left: 55%;
+	margin-top: 10px;
+}
+
+.Materias{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+/*-------------------------------- outros -----------------------------------*/
 
 .acoes{
 	display: flex;
@@ -90,57 +213,4 @@ footer {
 	color: #b521e2;
 	font-size: 35px;
 	z-index: 9999;
-}
-
-
-/* ---------------------------- Splash Screen -------------------------------*/
-
-.SplashScreenIndex{
-	position: fixed;
-	z-index: 1;
-	left: 0%;
-	top: 0%;
-	width: 100%;
-	height: 100vh;
-	background-color: #b521e2;
-	transition: 1s;
-	z-index: 999997;
-}
-
-.logo-header-Index{
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	color: #ffffff;
-	z-index: 999998;
-}
-
-.logoIndex{
-	position: relative;
-	display: inline-block;
-	bottom: -20px;
-	opacity: 0;
-    background-color: transparent;
-	z-index: 999998;
-}
-
-.logo-img-Index{
-    position: fixed;
-    top: -90px;
-	z-index: 999998;
-}
-
-.logoIndex.active{
-	bottom: 0;
-	opacity: 1;
-	transition: ease-in-out 0.5s;
-	z-index: 999998;
-}
-
-.logoIndex.fade{
-	bottom: 0;
-	opacity: 0;
-	transition: ease-in-out 0.5s;
-	z-index: 999998;
 }

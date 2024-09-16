@@ -181,6 +181,7 @@ export function agenda(){
     document.querySelector("#modalTarefas .close").addEventListener("click", fecharModalTarefas);
 
     renderizarCalendario(selectedDate);
-}
+
     //exemplo de como criar uma tarefa, colocar o nome da tarefa e a data, sendo dia, mes , ano
-    criarTarefa("Tarefa Silvio", 12, 9, 2024);
+    //criarTarefa("Tarefa Silvio", 12, 9, 2024);
+}
