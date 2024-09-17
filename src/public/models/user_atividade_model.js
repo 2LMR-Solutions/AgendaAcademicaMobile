@@ -11,61 +11,68 @@ class User_Atividade {
       this.#usuarioId = usuarioId;
       this.#atividadeId = atividadeId;
       this.data_associacao = new Date().toISOString(); // Data atual no formato ISO
-      this.#id = User_Atividade.getNextID();
+    
     }
   
-    static initializeStorage() {
-      if (!localStorage.getItem(User_Atividade.STORAGE_KEY)) {
-        localStorage.setItem(User_Atividade.STORAGE_KEY, '1');
-      }
-    }
-  
-    static getNextID() {
-      User_Atividade.initializeStorage();
-      const id = parseInt(localStorage.getItem(User_Atividade.STORAGE_KEY), 10);
-      localStorage.setItem(User_Atividade.STORAGE_KEY, (id + 1).toString());
-      return id;
-    }
-  
-    save() {
+    async save() {
       const userAtividadeData = {
-        id: this.#id,
         usuarioId: this.#usuarioId,
         atividadeId: this.#atividadeId,
         data_associacao: this.data_associacao
       };
-      const key = `${User_Atividade.STORAGE_PREFIX}${this.#id}`;
-      console.log(`Saving user-atividade data to key: ${key}`);
-      localStorage.setItem(key, JSON.stringify(userAtividadeData));
-    }
-  
-    static loadByUsuarioId(usuarioId) {
-      const atividades = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith(User_Atividade.STORAGE_PREFIX)) {
-          const userAtividadeData = JSON.parse(localStorage.getItem(key));
-          if (userAtividadeData.usuarioId === usuarioId) {
-            atividades.push(userAtividadeData);
-          }
-        }
+    
+      try {
+        const response = await fetch('URL_do_servidor/user_atividades', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userAtividadeData)
+        });
+    
+        const result = await response.json();
+        console.log("Associação User_Atividade salva com sucesso:", result);
+        return result;
+      } catch (error) {
+        console.error("Erro ao salvar User_Atividade:", error);
       }
-      return atividades;
     }
+    
   
-    static loadByAtividadeId(atividadeId) {
-      const usuarios = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith(User_Atividade.STORAGE_PREFIX)) {
-          const userAtividadeData = JSON.parse(localStorage.getItem(key));
-          if (userAtividadeData.atividadeId === atividadeId) {
-            usuarios.push(userAtividadeData);
+    static async loadByUsuarioId(usuarioId) {
+      try {
+        const response = await fetch(`URL_do_servidor/user_atividades/usuario/${usuarioId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
           }
-        }
+        });
+    
+        const atividades = await response.json();
+        console.log(`Atividades carregadas para o usuário ${usuarioId}:`, atividades);
+        return atividades;
+      } catch (error) {
+        console.error(`Erro ao carregar atividades do usuário ${usuarioId}:`, error);
       }
-      return usuarios;
     }
+    
+    static async loadByAtividadeId(atividadeId) {
+      try {
+        const response = await fetch(`URL_do_servidor/user_atividades/atividade/${atividadeId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+    
+        const usuarios = await response.json();
+        console.log(`Usuários carregados para a atividade ${atividadeId}:`, usuarios);
+        return usuarios;
+      } catch (error) {
+        console.error(`Erro ao carregar usuários da atividade ${atividadeId}:`, error);
+      }
+    }
+    
   }
   
   export { User_Atividade as UserAtividade };
