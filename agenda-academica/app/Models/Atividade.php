@@ -19,6 +19,7 @@ class Atividade extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nome',
         'desc',
         'data_Inicio',

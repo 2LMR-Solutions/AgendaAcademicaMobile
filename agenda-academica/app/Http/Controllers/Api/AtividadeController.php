@@ -30,15 +30,20 @@ class AtividadeController extends Controller
     public function store(Request $request): JsonResponse{
         DB::beginTransaction();
         try{
+            // Recupera o último ID da tabela e adiciona 1 para o próximo
+            $lastId = Atividade::max('id') ?? 0;
+            $nextId = $lastId + 1;
+    
             $atividade = Atividade::create([
+                'id' => $nextId,
                 'nome' => $request->nome,
                 'desc' => $request->desc,
                 'data_Inicio' => $request->data_Inicio,
                 'data_Final' => $request->data_Final
             ]);
-
+    
             DB::commit();
-
+    
             return response()->json([
                 'status' => true,
                 'tarefa' => $atividade,
@@ -52,12 +57,14 @@ class AtividadeController extends Controller
             ],400);
         }
     }
+    
 
     public function update(Request $request, Atividade $atividade) : JsonResponse{
         
         DB::beginTransaction();
         try{
             $atividade->update([
+                'id' => $request->id,
                 'nome' => $request->nome,
                 'desc' => $request->desc,
                 'data_Inicio' => $request->data_Inicio,

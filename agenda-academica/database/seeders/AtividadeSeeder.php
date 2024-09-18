@@ -13,6 +13,7 @@ class AtividadeSeeder extends Seeder
     public function run(): void
     {
         Atividade::create([
+            'id' => 1,
             'nome'=>'atividade1',
             'desc'=>'desc1',
             'data_Inicio'=>'2024-12-31',
