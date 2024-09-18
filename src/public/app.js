@@ -5,6 +5,7 @@ import { Atividade } from "./models/atividade_model.js";
 import { UserAtividade } from "./models/user_atividade_model.js";
 import { cadastro_user,login } from "./controller/cadastro_user.js";
 import { agenda } from "./views/agenda.js";
+import { cadastroT } from "./controller/incluir-atvidade.js";
 
 if (document.body.id === 'index-page') {
   document.addEventListener('DOMContentLoaded', () => {
@@ -20,6 +21,14 @@ else if (document.body.id === 'Initial-page') {
 }
 else if (document.body.id === 'agenda-page'){
   agenda();
+}
+else if (document.body.id === 'incluirATV-page'){
+  document.addEventListener('DOMContentLoaded', () => {
+    let test_btn = document.getElementById("test-btn");
+    if (test_btn) {
+      test_btn.onclick = cadastroT;
+    }
+  });
 }
 
 

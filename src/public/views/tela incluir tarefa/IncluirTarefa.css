@@ -27,6 +27,15 @@ input[id=titulo]{
 	
 }
 
+input[id=titulo-atividade]{
+	background-color: #a5a5a500;
+	color: #b521e2;
+	border: none;
+	margin-left: 20px;
+}
+
+
+
 input::placeholder [id="titulo"] {
 	color: #b521e2
   }

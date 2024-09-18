@@ -24,7 +24,7 @@ class Atividade{
       
         try {
           // Primeiro, cadastra a atividade
-          const responseAtividade = await fetch('URL_do_servidor/atividades', {
+          const responseAtividade = await fetch('http://127.0.0.1:8000//api/Tarefas', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -33,7 +33,7 @@ class Atividade{
           });
       
           const resultAtividade = await responseAtividade.json();
-          
+          console.log("ID da tarefa: ", resultAtividade.id);
           console.log("Atividade cadastrada com sucesso:", resultAtividade);
           this.#id = resultAtividade.id
           // Agora cria a relação User_Atividade
