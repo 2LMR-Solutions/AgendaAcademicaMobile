@@ -24,7 +24,7 @@ class Atividade{
       
         try {
           // Primeiro, cadastra a atividade
-          const responseAtividade = await fetch('http://127.0.0.1:8000//api/Tarefas', {
+          const responseAtividade = await fetch('http://127.0.0.1:8000/api/atividades', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
