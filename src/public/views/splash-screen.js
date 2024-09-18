@@ -4,6 +4,7 @@ let intro = document.querySelector('.SplashScreen')
 let logo = document.querySelector('.logo-header')
 let logoSpan = document.querySelectorAll('.logo')
 let logoImg = document.querySelector('.logo-img')
+
 function Splash() {
     return new Promise((resolve) => {
         const intro = document.querySelector('.SplashScreen');
@@ -30,12 +31,45 @@ function Splash() {
     });
 }
 
+export function SplashScreen() {
+    const lastVisit = localStorage.getItem(SPLASH_SCREEN_KEY);
+    const now = new Date().getTime();
+    const timeSinceLastVisit = now - parseInt(lastVisit, 10);
+
+
+        if (timeSinceLastVisit > TIMEOUT){
+            Splash().then(() => {
+                delay(500).then(() => {
+                    updateCharts(); 
+                });
+            });
+        }
+        else {
+            document.querySelector('.SplashScreen').style.display = 'none';
+            updateCharts();
+        }
+
+}
+
 const SPLASH_SCREEN_KEY = 'showSplashScreen';
-const TIMEOUT = 50000; // 10 minutos em milissegundos
-const now = new Date().getTime();
+const TIMEOUT =  10 * 60 * 1000; // 10 minutos em milissegundos
 
 function reiniciarTempo() {
     localStorage.setItem(SPLASH_SCREEN_KEY, new Date().getTime());
+}
+
+export function inactivityTime() {
+    const lastVisit = localStorage.getItem(SPLASH_SCREEN_KEY);
+    const now = new Date().getTime();
+    const timeSinceLastVisit = now - parseInt(lastVisit, 10);
+
+    if (timeSinceLastVisit > TIMEOUT) {
+        IrParaIndex();
+    }
+}
+
+function IrParaIndex() {
+    window.location.href = '/index.html';
 }
 
 function updateCharts() {
@@ -49,55 +83,10 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function IrParaIndex() {
-    window.location.href = '/index.html';
-}
-
-function inactivityTimeSplash() {
-    const lastVisit = localStorage.getItem(SPLASH_SCREEN_KEY);
-    const now = new Date().getTime();
-    if (!lastVisit) {
-        localStorage.setItem(SPLASH_SCREEN_KEY, now);
-        return true;
-    }
-
-    const timeSinceLastVisit = now - parseInt(lastVisit, 10);
-
-    if (timeSinceLastVisit > TIMEOUT) {
-        localStorage.setItem(SPLASH_SCREEN_KEY, now);
-        if (document.body.id === 'index-page') {
-            Splash().then(() => {
-                delay(500).then(() => {
-                    updateCharts();
-                });
-            });
-        }else{
-            IrParaIndex();
-        }
-        return true;
-    }
-
-    return false;
-}
-
-export function SplashScreen() {
-    if (!inactivityTimeSplash()) {
-        if (document.body.id === 'index-page') {
-            Splash().then(() => {
-                delay(500).then(() => {
-                    updateCharts();
-                });
-            });
-        }
-    }
-}
+setInterval(() => {
+    inactivityTime(); 
+}, 1000); 
 
 window.onload = reiniciarTempo;
 document.onmousemove = reiniciarTempo;
 document.onkeydown = reiniciarTempo;
-
-// Configura um intervalo para verificar a inatividade periodicamente
-setInterval(() => {
-    inactivityTimeSplash(); // Chama a função sem realizar outras ações
-}, 1000); // Verifica a cada 500 milissegundos
-
