@@ -6,6 +6,8 @@ import { cadastro_user } from "./controller/cadastro_user.js";
 import { agenda } from "./views/agenda.js";
 import { AbrirCalendario } from "./views/IncluirTarefa.js";
 import { mostrarNomeArquivo } from "./views/IncluirTarefa.js";
+import { exibirMensagemValidacao } from "./views/tela criar conta/CriarConta.js";
+
 
 if (document.body.id === 'agenda-page'){
   agenda();
