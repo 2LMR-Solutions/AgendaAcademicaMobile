@@ -46,12 +46,20 @@
                 <textarea type="input" id="descricao" placeholder="Adicionar uma descrição"> </textarea> 
         </div>
         <hr>
+
+
         <div class="componente">
-            <span class="material-symbols-outlined icon">
-                Event
-            </span>
-                Data
+            <form>
+                <label>
+                    <span class="material-symbols-outlined icon" id="calendar-icon" onclick="AbrirCalendario()">
+                        Event
+                    </span>
+                </label>
+                <input class="campo_data" type="date" id="data" name="data">
+            </form>
         </div>
+
+
         <hr>
         <div class="componente">
             <div class="form-check form-switch">
@@ -60,16 +68,61 @@
               </div>
         </div>
     </div>
+
     <div class="container_atividades">
+
         <div class="atividades">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                 <label class="form-check-label" for="defaultCheck1">
-                <input id="titulo" placeholder="Título da Tarefa" >
+                <input id="titulo" placeholder="subtarefa 1" >
                 </label>
             </div>
         </div>
+
+        <div class="atividades">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                <input id="titulo" placeholder="subtarefa 2" >
+                </label>
+            </div>
+        </div>
+            
+        <div class="atividades">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                <input id="titulo" placeholder="subtarefa 3" >
+                </label>
+            </div>
+        </div>
+
     </div>
+
+
+    <div class="upload-container">
+
+        <!-- <div class="icone_arquivo">
+            <span class="material-symbols-outlined">
+                upload_file
+            </span>
+        </div>
+        <br> -->
+        
+        <div class="input-arquivo">
+            <label for="arquivo" class="upload-label"></label>
+            <label class="custom-file-upload">
+                Anexar arquivos
+                <input type="file" id="arquivo" class="upload-input" name="arquivo" multiple accept="image/*, .pdf, .docx, .xlsx" onchange="mostrarNomeArquivo()">
+            </label>
+            <p id="nome-arquivo">Nenhum arquivo escolhido</p>
+        </div>
+
+    </div>
+
+
+
     <footer>
         <div class="acoes">
             <a href="/index.html" class="nav-link">
@@ -84,8 +137,9 @@
         </div>
     </footer>
 </body>
-    <script type="module"> import '../../app.js' 
-    </script>
+
+
+<script type="module"> import '../../app.js'; </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
