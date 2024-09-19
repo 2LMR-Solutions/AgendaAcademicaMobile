@@ -1,10 +1,9 @@
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: "Outfit", sans-serif;
 }
-
 
 body {
     font-family: "Roboto", sans-serif;
@@ -12,129 +11,117 @@ body {
 
 header {
     background-color: #ededed;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     font-weight: 900;
     font-size: 30px;
-	top: 0%;
-	width: 100%;
-    }
-
-input[id=titulo]{
-	background-color: #a5a5a500;
-	color: #b521e2;
-	border: none;
-	margin-left: 20px;
-	
+    top: 0%;
+    width: 100%;
 }
 
-input::placeholder [id="titulo"] {
-	color: #b521e2
-  }
-
-textarea::placeholder{
-	color: #b521e2b3;
+input[id=titulo] {
+    background-color: #a5a5a500;
+    color: #b521e2;
+    border: none;
+    margin-left: 20px;
 }
 
-input[id=descricao]{
-	background-color: #a5a5a500;
-	border: none;
-	border-color: #a5a5a500;
-
+input::placeholder[id="titulo"] {
+    color: #b521e2;
 }
 
-input:focus {
-	border-color: none;
-	outline: none; 
+textarea::placeholder {
+    color: #b521e2b3;
 }
 
+input[id=descricao] {
+    background-color: #a5a5a500;
+    border: none;
+    border-color: #a5a5a500;
+}
+
+input:focus,
 textarea:focus {
-	border-color: none;
-	outline: none; 
+    border-color: none;
+    outline: none;
 }
 
-textarea{
-	border: none;
-	outline: none;
+textarea {
+    border: none;
+    outline: none;
 }
 
-
-.componentes_tarefa{
-	margin-top: 50px;
-	font-size: 22px;
+.componentes_tarefa {
+    margin-top: 50px;
+    font-size: 22px;
 }
 
-
-.componente{
-	margin-top: 18px;
-	margin-bottom: 18px;
-	margin-left: 30px;
-	margin-right: 20px;
-	font-size: 21px;
+.componente {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    margin-left: 30px;
+    margin-right: 20px;
+    font-size: 21px;
 }
 
-.icon{
-	color: rgb(62, 62, 62);
-	margin-right: 20px;
-	cursor: pointer;
+.icon {
+    color: rgb(62, 62, 62);
+    margin-right: 20px;
+    cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-hr{
-	color: #b521e2;
+hr {
+    color: #b521e2;
 }
 
 /* cores do botão sem flegar */
 .form-check-input {
-	--switch-track-bg: #e2e2e2; /* Cor de fundo do switch não marcado */
-	--border-color-bg: #a5a5a5; /* Cor de fundo do switch marcado */
+    --switch-track-bg: #e2e2e2; /* Cor de fundo do switch não marcado */
+    --border-color-bg: #a5a5a5; /* Cor de fundo do switch marcado */
 }
 
 /* cores do botão flegado */
 .form-check-input:checked {
-	background-color:#c223f39b; /* Cor de fundo quando o switch está marcado */
-	border-color: #c00af7; /* Cor da borda quando o switch está marcado */
+    background-color: #c223f39b; /* Cor de fundo quando o switch está marcado */
+    border-color: #c00af7; /* Cor da borda quando o switch está marcado */
 }
 
-
-.container_atividades{
-	background-color: #ecebeb;
-	width: 100%;
-	padding-top: 3%;
-	padding-bottom: 3%;
+.container_atividades {
+    background-color: #ecebeb;
+    width: 100%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
-.atividades{
-	margin-left: 35px;
-	font-size: 21px;
-	padding-top: 1%;
+.atividades {
+    margin-left: 35px;
+    font-size: 21px;
+    padding-top: 1%;
 }
 
-.componente-data{
-	display: flex;
+.componente-data {
+    display: flex;
     align-items: center;
-	margin: 20px;
+    margin: 20px;
+    gap: 20px; /* Espaçamento entre os campos de data */
 }
 
 .campo_data {
-	border: none;
-	color: rgb(62, 62, 62);
-
+    border: none;
+    color: rgb(62, 62, 62);
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+    padding: 5px;
 }
 
-/* esconde o icone de data do nagevador */
+/* esconde o icone de data do navegador */
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;}
-
-
-/* .icone_arquivo{
-	color:#cf40fab3;
-	text-align: center;
-	font-size: 30%;
-	text-size-adjust: 30%;
-	margin-top: 3%;
-} */
+    display: none;
+}
 
 .upload-container { 
     background-color: #ededed;
@@ -157,7 +144,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .custom-file-upload {
-	margin-top: 3%;
     display: inline-block;
     cursor: pointer;
     border: none;
@@ -171,27 +157,69 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #a5a5a5;
 }
 
-/*-------------------------------- footer -----------------------------------*/
+.BotaoSalvar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 10%;
+    margin-bottom: 18%;
+    height: 35px;
+    width: 100px;
+    color: #ffffff;
+    background-color: #b521e2;
+    padding: 11px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
 
+.tituloTarefa {
+    border-style: none;
+    background-color: transparent;
+    max-width: 80%;
+}
+
+.labelSubtarefa {
+    width: 80%;
+}
+
+.subtarefa {
+    border-style: none;
+    background-color: transparent;
+    width: 80%;
+}
+
+.Data{
+	width: 120px;
+}
+
+.descricao{
+	display: flex;
+	justify-content: space-between;
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+
+/*-------------------------------- footer -----------------------------------*/
 footer {
     position: fixed;
     bottom: 0;
     width: 100%; 
 }
 
-.acoes{
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: #ededed;
-	height: 50px;
-	border-top-left-radius: 15px;
+.acoes {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #ededed;
+    height: 50px;
+    border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-	z-index: 9998;
+    z-index: 9998;
 }
 
-.acoes span{
-	color: #b521e2;
-	font-size: 35px;
-	z-index: 9999;
+.acoes span {
+    color: #b521e2;
+    font-size: 35px;
+    z-index: 9999;
 }

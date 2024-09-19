@@ -44,8 +44,8 @@
                 <div class="row">
                     <div class="col-6 ml-md-6">
                         <h1 class="display-6 fw-bold">
-                            <span id="BemVindo">Bem {{Vindo}}</span><br>
-                            <span id="Usuario">{{Usuario}}</span>
+                            <span id="BemVindo">Ola</span><br>
+                            <span id="Usuario">Aluno!</span>
                         </h1>
                         <!-- coloquei as chaves para conseguir mudar depois com o JS -->
                     </div>
@@ -64,27 +64,9 @@
                     <md-list-item>
                         Atividades
                     </md-list-item>
-                    <md-divider>
-                    </md-divider>
-                    <md-list-item>
-                        Atividade1
-                    </md-list-item>
-                    <md-list-item>
-                        Atividade2
-                    </md-list-item>
-                    <md-list-item type="link" href="https://google.com/" target="_blank">
-                        <div slot="headline">
-                            Atividade3
-                        </div>
-                        <div slot="supporting-text">
-                            This will link you out in a new tab
-                        </div>
-                        <md-icon slot="end">
-                            <span class="material-icons md-18">
-                                arrow_forward
-                            </span>
-                        </md-icon>
-                    </md-list-item>
+                    <md-divider></md-divider>
+                    <!-- Lista dinâmica de atividades -->
+                    <div id="atividades-list"></div>
                 </md-list>
                 <div>
                     <a href="/src/public/views/tela incluir tarefa/IncluirTarefa.html" class="">
@@ -101,54 +83,7 @@
             <h2>Relatório Semanal</h2>
             <div class="Graficos">
                 <div class="row GraficosRelatorioSemanal">
-                    <div class="col-6 col-md-4 col-lg-3 Materias" id="Materia1">
-                        <div class="progress-circle" id="Grafico1">
-                            <svg viewBox="0 0 36 36" class="circular-chart">
-                                <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
-                                <circle class="circle" cx="18" cy="18" r="15.9155"/>
-                            </svg>
-                            <div class="percentage">
-                                <span class="percent">0%</span>
-                            </div>
-                        </div>
-                        <span>materia 1</span>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 Materias" id="Materia2">
-                        <div class="progress-circle" id="Grafico2">
-                            <svg viewBox="0 0 36 36" class="circular-chart">
-                                <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
-                                <circle class="circle" cx="18" cy="18" r="15.9155"/>
-                            </svg>
-                            <div class="percentage">
-                                <span class="percent">0%</span>
-                            </div>
-                        </div>
-                        <span>materia 2</span>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 Materias" id="Materia3">
-                        <div class="progress-circle" id="Grafico3">
-                            <svg viewBox="0 0 36 36" class="circular-chart">
-                                <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
-                                <circle class="circle" cx="18" cy="18" r="15.9155"/>
-                            </svg>
-                            <div class="percentage">
-                                <span class="percent">0%</span>
-                            </div>
-                        </div>
-                        <span>materia 3</span>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 Materias" id="Materia4">
-                        <div class="progress-circle" id="Grafico4">
-                            <svg viewBox="0 0 36 36" class="circular-chart">
-                                <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
-                                <circle class="circle" cx="18" cy="18" r="15.9155"/>
-                            </svg>
-                            <div class="percentage">
-                                <span class="percent">0%</span>
-                            </div>
-                        </div>
-                        <span>materia 4</span>
-                    </div>
+                    <!-- Gráficos dinâmicos serão inseridos aqui -->
                 </div>
             </div>
             <div class="text-center mt-3">
