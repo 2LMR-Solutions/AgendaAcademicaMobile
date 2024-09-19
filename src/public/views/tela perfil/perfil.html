@@ -38,8 +38,8 @@
                 <div class="row">
 
                     <div class="col-5 d-flex align-items-center justify-content-center">
-                        <img src="/src/public/assets/logoTransparenteBranco.png" class="rounded-circle" alt="img"
-                            width="60%" height="100%">
+                        <input type="file" id="fotoPerfil" accept="image/*" style="display: none;">
+                        <img id="imagemPerfil" src="/src/public/assets/logoTransparenteBranco.png" class="rounded-circle" alt="img" width="60%" height="100%">
                     </div>
 
                     <div class="col-6 ml-md-6">
@@ -52,13 +52,17 @@
     </header>
 
     <div class="opcoes_perfil">
-        <div class="opcao_perfil">
-            <span class="material-symbols-outlined icon">
-                manage_accounts
-            </span>
-                Meus dados
+        <div class="mb-3 opcao_perfil">
+            
+                <span class="material-symbols-outlined icon">
+                    manage_accounts
+                </span>
+                
+            <input type="email" class="form-control" id="nome" placeholder="Seu Nome">
         </div>
-        <hr>
+    
+
+        <!-- <hr>
         <div class="opcao_perfil">
             <span class="material-symbols-outlined icon">
                 book
@@ -71,15 +75,36 @@
                 notifications_active
             </span>
                 Notificações
-        </div>
+        </div> -->
         <hr>
         <div class="opcao_perfil">
             <span class="material-symbols-outlined">
                 info
             </span>
-                Sobre nós
+                <a href="https://github.com/2LMR-Solutions"> Sobre nós</a>
         </div>
-    </div>    
+    </div>
+
+    <div class="botoes">
+    <button id="editarPerfil" class="btn btn-primary botaoEditar">
+        <span class="material-symbols-outlined">
+        edit
+        </span>
+    </button>
+    <button id="salvarPerfil" class="btn btn-success botaoSalvar" >
+        <span class="material-symbols-outlined">
+            save
+        </span>
+    </button>
+    </div>
+
+    <div class="aviso-do-aviso">
+        <div class="container-aviso">
+            <div class="aviso">
+                Você pode editar sua foto de perfil e como você gostaria de ser chamado
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="acoes">
