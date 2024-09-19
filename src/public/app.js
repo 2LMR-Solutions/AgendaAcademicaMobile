@@ -4,7 +4,8 @@ import { Atividade } from "./models/atividade_model.js";
 import { UserAtividade } from "./models/user_atividade_model.js";
 import { cadastro_user } from "./controller/cadastro_user.js";
 import { agenda } from "./views/agenda.js";
- 
+import { AbrirCalendario } from "./views/IncluirTarefa.js";
+import { mostrarNomeArquivo } from "./views/IncluirTarefa.js";
 
 if (document.body.id === 'agenda-page'){
   agenda();
