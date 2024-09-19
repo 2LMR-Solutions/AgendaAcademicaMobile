@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AtividadeSeeder::class,
+            SubtarefaSeeder::class,
         ]);
     }
 }
