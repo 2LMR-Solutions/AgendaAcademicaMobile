@@ -52,7 +52,8 @@ export function SplashScreen() {
 }
 
 const SPLASH_SCREEN_KEY = 'showSplashScreen';
-const TIMEOUT =  10 * 60 * 1000; // 10 minutos em milissegundos
+const TIMEOUT =  10 * 60 * 1000; // 10 minutos
+// const TIMEOUT =  5000; // para teste 5 segundos 
 
 function reiniciarTempo() {
     localStorage.setItem(SPLASH_SCREEN_KEY, new Date().getTime());
@@ -73,10 +74,10 @@ function IrParaIndex() {
 }
 
 function updateCharts() {
-    setProgress('Grafico1', 75);
-    setProgress('Grafico2', 50);
-    setProgress('Grafico3', 43);
-    setProgress('Grafico4', 3);
+    // setProgress('Grafico1', 75);
+    // setProgress('Grafico2', 50);
+    // setProgress('Grafico3', 43);
+    // setProgress('Grafico4', 3);
 }
 
 function delay(ms) {

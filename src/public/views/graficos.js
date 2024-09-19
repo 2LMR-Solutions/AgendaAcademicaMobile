@@ -1,7 +1,7 @@
 export function setProgress(chartId, percent) {
     const chart = document.getElementById(chartId);
     if (!chart) {
-        console.error(`Gráfico com ID "${chartId}" não encontrado!`);
+        // console.error(`Gráfico com ID "${chartId}" não encontrado!`);
         return;
     }
 
