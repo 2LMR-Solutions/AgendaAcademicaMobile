@@ -17,7 +17,9 @@ header {
     border-bottom-right-radius: 15px;
     font-weight: 900;
     font-size: 30px;
-}
+	top: 0%;
+	width: 100%;
+    }
 
 input[id=titulo]{
 	background-color: #a5a5a500;
@@ -30,6 +32,10 @@ input[id=titulo]{
 input::placeholder [id="titulo"] {
 	color: #b521e2
   }
+
+textarea::placeholder{
+	color: #b521e2b3;
+}
 
 input[id=descricao]{
 	background-color: #a5a5a500;
@@ -71,6 +77,7 @@ textarea{
 .icon{
 	color: rgb(62, 62, 62);
 	margin-right: 20px;
+	cursor: pointer;
 }
 
 hr{
@@ -93,12 +100,77 @@ hr{
 .container_atividades{
 	background-color: #ecebeb;
 	width: 100%;
+	padding-top: 3%;
+	padding-bottom: 3%;
 }
 
 .atividades{
 	margin-left: 35px;
 	font-size: 21px;
+	padding-top: 1%;
 }
+
+.componente-data{
+	display: flex;
+    align-items: center;
+	margin: 20px;
+}
+
+.campo_data {
+	border: none;
+	color: rgb(62, 62, 62);
+
+}
+
+/* esconde o icone de data do nagevador */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;}
+
+
+/* .icone_arquivo{
+	color:#cf40fab3;
+	text-align: center;
+	font-size: 30%;
+	text-size-adjust: 30%;
+	margin-top: 3%;
+} */
+
+.upload-container { 
+    background-color: #ededed;
+    width: 100%;
+    text-align: center;
+    margin-top: 10%;
+    border-radius: 5px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.input-arquivo {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Esconder o input de arquivo real */
+.upload-input {
+    display: none;
+}
+
+.custom-file-upload {
+	margin-top: 3%;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    color: #c00af7;
+    margin-bottom: 10px;
+}
+
+/* Estilo para o nome do arquivo */
+#nome-arquivo {
+    margin-top: 10px;
+    color: #a5a5a5;
+}
+
 /*-------------------------------- footer -----------------------------------*/
 
 footer {
