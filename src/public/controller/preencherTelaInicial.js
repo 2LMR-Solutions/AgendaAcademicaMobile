@@ -95,24 +95,6 @@ function preencherTabelaAtividades(atividades) {
         `;
         atividadesList.appendChild(atividadeItem);
 
-        const graficoContainer = document.createElement('div');
-        graficoContainer.className = 'col-6 col-md-4 col-lg-3 Materias';
-        graficoContainer.id = `Materia${index + 1}`;
-
-        graficoContainer.innerHTML = `
-            <div class="progress-circle" id="Grafico${index + 1}">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                    <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
-                    <circle class="circle" cx="18" cy="18" r="15.9155"/>
-                </svg>
-                <div class="percentage">
-                    <span class="percent">0%</span>
-                </div>
-            </div>
-            <span>${atividade.nome || 'Sem Nome'}</span>
-        `;
-        graficosContainer.appendChild(graficoContainer);
-
         buscarSubatividades(atividade.id).then(subatividades => {
             if (subatividades && subatividades.length > 0) {
                 const totalSubatividades = subatividades.length;
@@ -121,13 +103,26 @@ function preencherTabelaAtividades(atividades) {
                 const percentConcluido = totalSubatividades > 0 
                     ? Math.round((subatividadesConcluidas / totalSubatividades) * 100) 
                     : 0;
+                const graficoContainer = document.createElement('div');
+                graficoContainer.className = 'col-6 col-md-4 col-lg-3 Materias';
+                graficoContainer.id = `Materia${index + 1}`;
 
+                graficoContainer.innerHTML = `
+                    <div class="progress-circle" id="Grafico${index + 1}">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <circle class="circle-bg" cx="18" cy="18" r="15.9155"/>
+                            <circle class="circle" cx="18" cy="18" r="15.9155"/>
+                        </svg>
+                        <div class="percentage">
+                            <span class="percent">0%</span>
+                        </div>
+                    </div>
+                    <span>${atividade.nome || 'Sem Nome'}</span>
+                `;
+
+                graficosContainer.appendChild(graficoContainer);
                 setTimeout(() => {
                     setProgress(`Grafico${index + 1}`, percentConcluido);
-                }, 200);
-            } else {
-                setTimeout(() => {
-                    setProgress(`Grafico${index + 1}`, 0);
                 }, 200);
             }
         });

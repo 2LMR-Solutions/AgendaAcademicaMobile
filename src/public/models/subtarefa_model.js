@@ -30,7 +30,6 @@ class Subtarefa{
           });
       
           const resultSubtarefa = await responseAtividade.json();
-          debugger
           this.#id = resultSubtarefa.tarefa.id
         } catch (error) {
           console.error("Erro ao cadastrar a subtarefa: ", error);

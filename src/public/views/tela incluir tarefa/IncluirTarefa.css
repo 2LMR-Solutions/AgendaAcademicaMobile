@@ -199,6 +199,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	margin-right: 25px;
 }
 
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
 
 /*-------------------------------- footer -----------------------------------*/
 footer {
