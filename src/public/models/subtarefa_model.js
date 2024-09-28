@@ -12,7 +12,7 @@ class Subtarefa{
         this.concluida = concluida
       }
 
-      async cadastrar(userId) {
+      async cadastrar() {
         const SATVData = {
           nome: this.nome,
           idAtividade: this.idAtividade,
@@ -30,11 +30,8 @@ class Subtarefa{
           });
       
           const resultSubtarefa = await responseAtividade.json();
-          console.log("ID da Subtarefa: ", resultSubtarefa.id);
-          console.log("Subtarefa cadastrada com sucesso:", resultSubtarefa);
-          this.#id = resultSubtarefa.id
-          // Agora cria a relação User_Atividade
-          
+          debugger
+          this.#id = resultSubtarefa.tarefa.id
         } catch (error) {
           console.error("Erro ao cadastrar a subtarefa: ", error);
         }

@@ -1,6 +1,4 @@
 class Atividade{
-
-
   #id; 
   nome;
   desc;
@@ -13,8 +11,8 @@ class Atividade{
       this.data_Inicio = data_Inicio;
       this.data_Final = data_Final;
     }
-
-    async cadastrar(userId) {
+    
+    async cadastrar() {
       const ATVData = {
         nome: this.nome,
         desc: this.desc,
@@ -33,30 +31,9 @@ class Atividade{
         });
     
         const resultAtividade = await responseAtividade.json();
-        console.log("ID da tarefa: ", resultAtividade.id);
-        console.log("Atividade cadastrada com sucesso:", resultAtividade);
-        this.#id = resultAtividade.id
-        // Agora cria a relação User_Atividade
-        const userAtividadeData = {
-          userId: userId,                // ID do usuário passado como argumento
-          atividadeId: resultAtividade.id // ID da atividade cadastrada
-        };
-        const responseUserAtividade = await fetch('URL_do_servidor/user_atividades', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(userAtividadeData) // Criando a relação entre o usuário e a atividade
-        });
-        const resultUserAtividade = await responseUserAtividade.json();
-        console.log("User_Atividade criada com sucesso:", resultUserAtividade);
-    
-        return {
-          atividade: resultAtividade,
-          userAtividade: resultUserAtividade
-        };
+        this.#id = resultAtividade.tarefa.id 
       } catch (error) {
-        console.error("Erro ao cadastrar a atividade ou a relação User_Atividade:", error);
+        console.error("Erro ao cadastrar a atividade", error);
       }
     }
 
@@ -75,6 +52,10 @@ class Atividade{
       } catch (error) {
         console.error(`Erro ao carregar a atividade com id ${id}:`, error);
       }
+    }
+
+    getID(){
+      return this.#id;
     }
     
 }
