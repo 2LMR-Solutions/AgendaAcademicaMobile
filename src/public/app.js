@@ -26,5 +26,25 @@ case "incluirATV-page":
       });
 }
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registrado com sucesso:', registration);
+      })
+      .catch(function(error) {
+        console.log('Falha ao registrar o Service Worker:', error);
+      });
+  });
+}
+
+const offlineModal = new bootstrap.Modal(document.getElementById('offlineModal'));
+window.addEventListener('offline', () => {
+    offlineModal.show();
+});
+window.addEventListener('online', () => {
+    offlineModal.hide();
+});
+
 SplashScreen(); 
 buscarAtividades();

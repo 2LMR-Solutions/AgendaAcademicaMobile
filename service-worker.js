@@ -3,15 +3,47 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/src/public/style.css',
+
+  '/src/public/views/tela agenda/Agenda.html',
+  '/src/public/views/tela agenda/Agenda.css',
+
+  '/src/public/views/tela incluir tarefa/IncluirTarefa.html',
+  '/src/public/views/tela incluir tarefa/IncluirTarefa.css',
+
+  '/src/public/views/tela inicial/telaInicial.html',
+  '/src/public/views/tela inicial/telaInicial.css',
+
+  '/src/public/views/tela perfil/perfil.html',
+  '/src/public/views/tela perfil/Perfil.css',
+
   '/src/public/app.js',
   '/manifest.json',
 
-  "colocar aqui todos os links de coisas para deixar salvo em cache",
-  
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+
+
+  'https://fonts.googleapis.com/icon?family=Material+Icons',
+  'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200',
+  'https://fonts.gstatic.com',
+  'https://fonts.googleapis.com', 
+  'https://esm.run/@material/web/all.js',
+  'https://esm.run/@material/web/typography/md-typescale-styles.js',
+  'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
+  'https://fonts.googleapis.com/css2?family=Material+Icons',
+  'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap',
+
+
+  '/src/public/assets/logoIconBranco.ico',
+  '/src/public/assets/logoIconRoxo.ico',
+  '/src/public/assets/logoTransparenteBranco.png',
+  '/src/public/assets/logoTransparenteBrancoFigma.png',
+  '/src/public/assets/logoTransparenteRoxo.png',
+  '/src/public/assets/logoTransparenteRoxoFigma.png',
+
   '/icons/windows11/SplashScreen.scale-100.png',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-  'https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js'
+  '/icons/windows11/SplashScreen.scale-100.png',
+  '/icons/windows11/SplashScreen.scale-100.png',
+  '/icons/windows11/SplashScreen.scale-100.png',
 ];
 
 self.addEventListener('install', function(event) {
