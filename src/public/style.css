@@ -145,6 +145,12 @@ footer {
 	margin: 0px !important;
 }
 
+.atividade-hoje {
+    background-color: rgba(255, 0, 0, 0.1); /* Fundo vermelho leve */
+    border-left: 4px solid red; /* Borda vermelha à esquerda */
+    border-radius: 5px;
+}
+
 /*------------------------------------- relatorio semanal ------------------------------------------*/
 
 .GraficosRelatorioSemanal{

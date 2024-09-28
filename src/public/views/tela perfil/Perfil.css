@@ -31,9 +31,12 @@ hr{
 
 .opcao_perfil{
 	margin-top: 18px;
-	 margin-bottom: 18px;
-	 margin-left: 20px;
-	 margin-right: 20px;
+	margin-bottom: 18px;
+	margin-left: 20px;
+	margin-right: 20px;
+	display: block;
+	display: flex;
+	align-items: left;
 }
 
 .icon{
@@ -41,8 +44,76 @@ hr{
 	height: 25px;
 }
 
+input[id=nome]{
+	border-color: none;
+	outline: none; 
 
+}
 
+input:focus {
+	border-color: none;
+	outline: none; 
+}
+
+.input:hover{
+	background-color: #b521e22c;
+	border: none
+}
+
+.componente{
+	margin-top: 18px;
+	margin-bottom: 18px;
+	margin-right: 20px;
+	font-size: 21px;
+}
+
+a{
+	text-decoration: none;
+	color: #6e6d6e;
+	margin-left: 2%;
+}
+
+.botoes{
+	text-align: right;
+	margin-right: 10%;
+	margin-top: 10%;
+}
+
+.botaoEditar{
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	margin-right: 5%;
+	background-color: #b521e2;
+	align-items: center;
+	border: none;
+}
+
+.botaoSalvar{
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	background-color: #86dc84;
+	align-items: center;
+	border: none;
+}
+
+.aviso-do-aviso{
+	align-items: center;
+	text-align: center;
+}
+
+.container-aviso{
+	text-align: center;
+	width: 80%;
+	border-radius: 30px;
+	margin-bottom: 10%;
+	margin-top: 10%;
+	margin-left: 9%;
+	background-color: rgba(207, 4, 4, 0.089);
+
+}
+.aviso{
+	color: rgba(207, 4, 4, 0.605);
+}
 /*-------------------------------- footer -----------------------------------*/
 
 footer {

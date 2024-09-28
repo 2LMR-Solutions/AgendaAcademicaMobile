@@ -30,43 +30,82 @@
     </script>
     <title>Agenda Acadêmica</title>
 </head>
-<body>
+<body id="incluirATV-page">
     <header>
         <div class="container py-3">
-            <div class="tarefa_titulo">
-                <input id="titulo" placeholder="Título da Tarefa" >
-              </div>
+            <div>
+                <input id="titulo-atividade" placeholder="Título da Tarefa" autocomplete="off" class="tituloTarefa">
+            </div>
         </div>
     </header>
     <div class="componentes_tarefa">
-        <div class="componente">
+        <div class="descricao">
             <span class="material-symbols-outlined icon">
                 edit_note
             </span>
-                <textarea type="input" id="descricao" placeholder="Adicionar uma descrição"> </textarea> 
+            <textarea type="input" id="descricao" autocomplete="off" placeholder="Adicionar uma descrição"></textarea>
         </div>
         <hr>
         <div class="componente">
-            <span class="material-symbols-outlined icon">
-                Event
+            <span class="material-symbols-outlined icon" id="calendar-icon">
+                event
             </span>
-                Data
+            <form class="SelectData">
+                <label for="dataInicial">
+                    <div class="Data">
+                        Data Inicial
+                    </div>
+                </label>
+                <input class="campo_data" type="date" id="dataInicial" name="dataInicial">
+                <label for="dataFinal">
+                    <div class="Data">
+                        Data Final
+                    </div>
+                </label>
+                <input class="campo_data" type="date" id="dataFinal" name="dataFinal">
+            </form>
         </div>
         <hr>
         <div class="componente">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Receber notificações</label>
-              </div>
+            </div>
         </div>
     </div>
     <div class="container_atividades">
-        <div class="atividades">
+        <div class="atividades" id="atividadesContainer">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                <input id="titulo" placeholder="Título da Tarefa" >
+                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+                <label class="labelSubtarefa" for="defaultCheck1">
+                    <input class="subtarefa" id="titulo-Subtarefa" autocomplete="off" placeholder="Subtarefa">
                 </label>
+            </div>
+        </div>
+    </div>
+    <div class="upload-container">
+        <div class="input-arquivo">
+            <label for="arquivo" class="upload-label"></label>
+            <label class="custom-file-upload">
+                Anexar arquivos
+                <input type="file" id="arquivo" class="upload-input" name="arquivo" multiple
+                    accept="image/*, .pdf, .docx, .xlsx">
+            </label>
+            <p id="nome-arquivo">Nenhum arquivo escolhido</p>
+        </div>
+    </div>
+    <div>
+        <button id="incluirATV_btn" class="btn btn-primary BotaoSalvar">Salvar</button>
+    </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p>Aguarde, salvando dados...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -84,21 +123,21 @@
         </div>
     </footer>
 </body>
-    <script type="module"> import '../../app.js' 
-    </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+<script type="module"> import '../../app.js' 
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
 </html>
