@@ -11,9 +11,14 @@ import { iniciarSubtarefas } from "./views/tela incluir tarefa/IncrementSubtaref
 import { mostrarNomeArquivo } from "./views/IncluirTarefa.js";
 
 switch (document.body.id){
+case "index-page":
+  buscarAtividades();
+  break;
+
 case "agenda-page":
   agenda();
   preencherTarefasNoCalendario();
+  break;
 
 case "incluirATV-page":
   document.addEventListener('DOMContentLoaded', () => {
@@ -24,6 +29,7 @@ case "incluirATV-page":
         iniciarSubtarefas();
         document.getElementById('arquivo').addEventListener('change', mostrarNomeArquivo);
       });
+  break;
 }
 
 if ('serviceWorker' in navigator) {
@@ -47,4 +53,3 @@ window.addEventListener('online', () => {
 });
 
 SplashScreen(); 
-buscarAtividades();
