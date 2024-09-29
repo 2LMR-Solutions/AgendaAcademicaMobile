@@ -108,35 +108,46 @@ function preencherAtividade(atividade) {
 function preencherSubtarefas(subtarefas) {
     const atividadesContainer = document.getElementById('atividadesContainer');
     atividadesContainer.innerHTML = ''; 
+    if (subtarefas.length > 0) {
+        subtarefas.forEach(subtarefa => {
+            const formCheck = document.createElement('div');
+            formCheck.className = 'form-check';
 
-    subtarefas.forEach(subtarefa => {
-        const formCheck = document.createElement('div');
-        formCheck.className = 'form-check';
+            const inputCheck = document.createElement('input');
+            inputCheck.className = 'form-check-input';
+            inputCheck.type = 'checkbox';
+            inputCheck.value = subtarefa.id;
+            inputCheck.id = `subtarefa-${subtarefa.id}`;
+            inputCheck.checked = subtarefa.concluida === 1;
 
-        const inputCheck = document.createElement('input');
-        inputCheck.className = 'form-check-input';
-        inputCheck.type = 'checkbox';
-        inputCheck.value = subtarefa.id;
-        inputCheck.id = `subtarefa-${subtarefa.id}`;
-        inputCheck.checked = subtarefa.concluida === 1;
+            const label = document.createElement('label');
+            label.className = 'labelSubtarefa';
+            label.htmlFor = `subtarefa-${subtarefa.id}`;
 
-        const label = document.createElement('label');
-        label.className = 'labelSubtarefa';
-        label.htmlFor = `subtarefa-${subtarefa.id}`;
+            const inputSubtarefa = document.createElement('input');
+            inputSubtarefa.className = 'subtarefa form-control';
+            inputSubtarefa.id = `titulo-Subtarefa-${subtarefa.id}`;
+            inputSubtarefa.value = subtarefa.nome;
+            inputSubtarefa.placeholder = 'Subtarefa';
 
-        const inputSubtarefa = document.createElement('input');
-        inputSubtarefa.className = 'subtarefa form-control';
-        inputSubtarefa.id = `titulo-Subtarefa-${subtarefa.id}`;
-        inputSubtarefa.value = subtarefa.nome;
-        inputSubtarefa.placeholder = 'Subtarefa';
+            label.appendChild(inputSubtarefa);
+            formCheck.appendChild(inputCheck);
+            formCheck.appendChild(label);
+            atividadesContainer.appendChild(formCheck);
+        });
+    }
 
-        label.appendChild(inputSubtarefa);
-        formCheck.appendChild(inputCheck);
-        formCheck.appendChild(label);
-        atividadesContainer.appendChild(formCheck);
-    });
+    const novaSubtarefa = document.createElement('div');
+    novaSubtarefa.classList.add('form-check');
+    novaSubtarefa.innerHTML = `
+        <input class="form-check-input" type="checkbox" value="" id="check-novo">
+        <label class="labelSubtarefa" for="check-novo">
+            <input class="subtarefa form-control" autocomplete="off" placeholder="Subtarefa">
+        </label>
+    `;
+    atividadesContainer.appendChild(novaSubtarefa);
 
-    iniciarSubtarefas();
+    iniciarSubtarefas(); 
 }
 
 function iniciarSubtarefas() {
@@ -152,11 +163,10 @@ function iniciarSubtarefas() {
             novaDiv.innerHTML = `
                 <input class="form-check-input" type="checkbox" value="" id="check${inputs.length + 1}">
                 <label class="labelSubtarefa" for="check${inputs.length + 1}">
-                    <input class="subtarefa" autocomplete="off" placeholder="Subtarefa">
+                    <input class="subtarefa form-control" autocomplete="off" placeholder="Subtarefa">
                 </label>
             `;
             container.appendChild(novaDiv);
-
             const novoInputSubtarefa = novaDiv.querySelector('.subtarefa');
             novoInputSubtarefa.addEventListener('input', adicionarSubtarefa);
             novoInputSubtarefa.addEventListener('input', removerSubtarefa);
@@ -168,7 +178,9 @@ function iniciarSubtarefas() {
 
         if (input.value.trim() === '') {
             const divSubtarefa = input.closest('.form-check');
-            if (divSubtarefa && container.querySelectorAll('.subtarefa').length > 1) {
+            const inputs = container.querySelectorAll('.subtarefa');
+
+            if (divSubtarefa && inputs.length > 1) {
                 divSubtarefa.remove();
             }
         }
@@ -178,13 +190,6 @@ function iniciarSubtarefas() {
         input.addEventListener('input', adicionarSubtarefa);
         input.addEventListener('input', removerSubtarefa);
     });
-
-    const inputs = container.querySelectorAll('.subtarefa');
-    if (inputs.length > 0) {
-        const ultimoInput = inputs[inputs.length - 1];
-        ultimoInput.addEventListener('input', adicionarSubtarefa);
-        ultimoInput.addEventListener('input', removerSubtarefa);
-    }
 }
 
 function coletarDadosAtividade() {
@@ -268,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(subtarefas => {
             if (subtarefas) {
                 preencherSubtarefas(subtarefas);
+                iniciarSubtarefas(); // Inicia a funcionalidade de adicionar/remover subtarefas
             }
         })
         .catch(error => {
