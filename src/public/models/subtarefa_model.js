@@ -36,22 +36,29 @@ class Subtarefa{
         }
       }
 
-      async carregar(id) {
+      async excluir() {
         try {
-          const response = await fetch(`URL_do_servidor/subtarefas/${id}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
+            const response = await fetch(`${API_URL}/atividades/${this.atividadeId}/subtarefas/${this.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erro ao excluir a subtarefa');
             }
-          });
-      
-          const result = await response.json();
-          console.log("Subtarefa carregada:", result);
-          return result; // Retorna a atividade carregada
         } catch (error) {
-          console.error(`Erro ao carregar a subtarefa com id ${id}:`, error);
+            console.error('Erro ao excluir subtarefa:', error);
+            throw error; // Propaga o erro para tratamento posterior
         }
-      }
+    }
+    
+
+
+      setId(id) {
+        this.#id = id;
+    }
       
 }
 

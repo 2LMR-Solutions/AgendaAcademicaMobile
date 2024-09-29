@@ -1,14 +1,11 @@
 import { SplashScreen } from "./views/splash-screen.js";
-// import { Usuario } from "./models/user_model.js";
-// import { Atividade } from "./models/atividade_model.js";
-// import { UserAtividade } from "./models/user_atividade_model.js";
-// import { cadastro_user,login } from "./controller/cadastro_user.js";
 import { agenda } from "./views/agenda.js";
 import { preencherTarefasNoCalendario } from "./controller/preencherAgenda.js";
 import { cadastroATV } from "./controller/incluir-atvidade.js";
 import { buscarAtividades } from "./controller/preencherTelaInicial.js";
 import { iniciarSubtarefas } from "./views/tela incluir tarefa/IncrementSubtarefas.js";
 import { mostrarNomeArquivo } from "./views/IncluirTarefa.js";
+import { populaTela, editarAtividade, excluirATV, abrirmodalexclusao, coletarDadosAtividade, getQueryParam} from "./views/EditarTarefa.js";
 
 switch (document.body.id){
 case "index-page":
@@ -30,6 +27,55 @@ case "incluirATV-page":
         document.getElementById('arquivo').addEventListener('change', mostrarNomeArquivo);
       });
   break;
+
+  case "editATV-page":
+    populaTela();
+    document.addEventListener('DOMContentLoaded', () =>{
+      document.getElementById("arquivo").addEventListener('change', function() {
+            const nomeArquivo = document.getElementById('nome-arquivo');
+            if (this.files.length > 0) {
+                const nomes = Array.from(this.files).map(file => file.name).join(', ');
+                nomeArquivo.textContent = nomes;
+            } else {
+                nomeArquivo.textContent = 'Nenhum arquivo escolhido';
+            }
+        });
+        document.getElementById('edit_btn').addEventListener('click', async (e) => {
+              e.preventDefault();
+          
+              const atividadeId = getQueryParam('id');
+              if (!atividadeId) {
+                  mostrarAlerta('ID da atividade não fornecido na URL.');
+                  return;
+              }
+          
+              const dadosAtividade = coletarDadosAtividade();
+              console.log(dadosAtividade);
+              $('#loadingModal').modal('show');
+          
+              try {
+                  await editarAtividade(atividadeId, dadosAtividade );
+              } finally {
+                  $('#loadingModal').modal('hide');
+              }
+          });
+      let excluir = document.getElementById("btnExcluir");
+      document.getElementById('confirmarExclusao').addEventListener('click', async () => {
+            $('#confirmDeleteModal').modal('hide');
+            $('#loadingModal').modal('show');
+            try {
+                await excluirATV();
+            } finally {
+                $('#loadingModal').modal('hide');
+            }
+        });
+      if( excluir){
+        // editar.onclick = editarAtividade();
+        excluir.onclick = abrirmodalexclusao;
+      }
+    });
+  break;
+
 }
 
 if ('serviceWorker' in navigator) {
