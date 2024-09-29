@@ -63,8 +63,6 @@ function preencherTabelaAtividades(atividades) {
     graficosContainer.innerHTML = '';
 
     const dataAtual = new Date();
-    const dataAtualStr = formatarDataLocal(dataAtual);
-
     const dataInicioIntervalo = new Date(dataAtual);
     dataInicioIntervalo.setHours(0, 0, 0, 0);
 
@@ -85,7 +83,9 @@ function preencherTabelaAtividades(atividades) {
         const classeAtividade = isHoje ? 'atividade-hoje' : ''; 
 
         const atividadeItem = document.createElement('md-list-item');
-        atividadeItem.className = classeAtividade;
+        atividadeItem.className = `atividade-item ${classeAtividade}`;
+        atividadeItem.dataset.id = atividade.id; // Adiciona o ID como atributo de dados
+
         atividadeItem.innerHTML = `
             <div>
                 <strong>${atividade.nome || 'Sem Nome'}</strong>
@@ -93,6 +93,12 @@ function preencherTabelaAtividades(atividades) {
             </div>
             <md-divider></md-divider>
         `;
+
+        // Adiciona o evento de clique para redirecionar
+        atividadeItem.addEventListener('click', () => {
+            window.location.href = `/src/public/views/tela editar tarefa/EditarTarefa.html?id=${atividade.id}`;
+        });
+
         atividadesList.appendChild(atividadeItem);
 
         buscarSubatividades(atividade.id).then(subatividades => {

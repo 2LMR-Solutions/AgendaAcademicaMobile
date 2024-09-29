@@ -11,15 +11,15 @@ export async function cadastroATV() {
     console.log(nomeATV);
 
     if (nomeATV === "") {
-        alert("Insira um título");
+        showAlert('Insira um título');
         return;
     } 
     if (dataFinal === "") {
-        alert("Insira uma data Final!");
+        showAlert("Insira uma data Final!");
         return;
     } 
     if (new Date(dataInicial) > new Date(dataFinal)) {
-        alert("A data inicial não pode ser maior que a data final!");
+        showAlert("A data inicial não pode ser maior que a data final!");
         return;
     } 
 
@@ -70,3 +70,16 @@ function verificarSubtarefas() {
 
     return subtarefas;
 }
+
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const customAlertMessage = document.getElementById('customAlertMessage');
+
+    customAlertMessage.textContent = message;
+    customAlert.style.display = 'block';
+
+    document.getElementById('customAlertClose').onclick = function() {
+      customAlert.style.display = 'none';
+    };
+}
+  
