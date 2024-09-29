@@ -1,6 +1,5 @@
-import { fetchAtividade, fetchSubatividades, salvarAtividade, excluirAtividade, obterSubtarefasExistentes } from '../controller/edicao_exclusao.js'
-
-
+import { fetchAtividade, fetchSubatividades, salvarAtividade, excluirAtividade} from '../controller/edicao_exclusao.js'
+export const idsSubtarefasParaExcluir = []; 
 
 export async function populaTela(){
     const atividadeId = getQueryParam('id');
@@ -8,7 +7,6 @@ export async function populaTela(){
         mostrarAlerta('ID da atividade não fornecido na URL.');
         return;
     }
-    console.log(atividadeId);
     const ATV = await fetchAtividade(atividadeId);
     preencherAtividade(ATV);
     const SubTF = await fetchSubatividades(atividadeId);
@@ -30,6 +28,7 @@ function preencherAtividade(atividade) {
 function preencherSubtarefas(subtarefas) {
     const atividadesContainer = document.getElementById('atividadesContainer');
     atividadesContainer.innerHTML = ''; 
+
     if (subtarefas.length > 0) {
         subtarefas.forEach(subtarefa => {
             const formCheck = document.createElement('div');
@@ -38,26 +37,33 @@ function preencherSubtarefas(subtarefas) {
             const inputCheck = document.createElement('input');
             inputCheck.className = 'form-check-input';
             inputCheck.type = 'checkbox';
-            inputCheck.value = subtarefa.id;
-            inputCheck.id = `subtarefa-${subtarefa.id}`;
+            inputCheck.value = subtarefa.getId();
+            inputCheck.id = `subtarefa-${subtarefa.getId()}`;
             inputCheck.checked = subtarefa.concluida === 1;
 
             const label = document.createElement('label');
             label.className = 'labelSubtarefa';
-            label.htmlFor = `subtarefa-${subtarefa.id}`;
+            label.htmlFor = `subtarefa-${subtarefa.getId()}`;
 
             const inputSubtarefa = document.createElement('input');
             inputSubtarefa.className = 'subtarefa form-control';
-            inputSubtarefa.id = `titulo-Subtarefa-${subtarefa.id}`;
+            inputSubtarefa.id = `titulo-Subtarefa-${subtarefa.getId()}`;
             inputSubtarefa.value = subtarefa.nome;
             inputSubtarefa.placeholder = 'Subtarefa';
+
+            const inputIdInvisivel = document.createElement('input');
+            inputIdInvisivel.type = 'hidden';
+            inputIdInvisivel.className = 'id-subtarefa';
+            inputIdInvisivel.value = subtarefa.getId() || ''; 
 
             label.appendChild(inputSubtarefa);
             formCheck.appendChild(inputCheck);
             formCheck.appendChild(label);
+            formCheck.appendChild(inputIdInvisivel); 
             atividadesContainer.appendChild(formCheck);
         });
     }
+
     const novaSubtarefa = document.createElement('div');
     novaSubtarefa.classList.add('form-check');
     novaSubtarefa.innerHTML = `
@@ -94,10 +100,14 @@ function iniciarSubtarefas() {
         const input = event.target;
         if (input.value.trim() === '') {
             const divSubtarefa = input.closest('.form-check');
-            const inputs = container.querySelectorAll('.subtarefa');
-
-            if (divSubtarefa && inputs.length > 1) {
-                divSubtarefa.remove();
+            const inputIdInvisivel = divSubtarefa.querySelector('.id-subtarefa');
+    
+            if (divSubtarefa && inputIdInvisivel) {
+                const subtarefaId = parseInt(inputIdInvisivel.value);
+                if (!isNaN(subtarefaId)) {
+                    idsSubtarefasParaExcluir.push(subtarefaId); 
+                }
+                divSubtarefa.remove(); 
             }
         }
     }
@@ -105,12 +115,6 @@ function iniciarSubtarefas() {
         input.addEventListener('input', adicionarSubtarefa);
         input.addEventListener('input', removerSubtarefa);
     });
-}
-
-export async function editarAtividade(atividadeid, dadosAtividade){
-    const SUBSIDS = await obterSubtarefasExistentes(atividadeid);
-    debugger
-    await salvarAtividade(atividadeid, dadosAtividade, SUBSIDS.id );
 }
 
 export async function excluirATV() {
@@ -150,77 +154,48 @@ export function mostrarAlerta(mensagem, tipo = 'error') {
         customAlert.style.display = 'none';
     };
 }
+
+export async function editarAtividade(atividadeId, dadosAtividadeExistente) {
+    const dadosAtividadeColetados = coletarDadosAtividade();
+
+    const dadosAtividade = {
+        nome: dadosAtividadeColetados.nome,
+        desc: dadosAtividadeColetados.desc,
+        data_Inicio: dadosAtividadeColetados.data_Inicio,
+        data_Final: dadosAtividadeColetados.data_Final,
+        notificacoes: dadosAtividadeColetados.notificacoes
+    };
+
+    const novasSubtarefas = dadosAtividadeColetados.subtarefas;
+
+    const subtarefasExistentes = dadosAtividadeExistente.subtarefas;
+
+    await salvarAtividade(atividadeId, dadosAtividade, subtarefasExistentes, novasSubtarefas);
+}
+
 export function coletarDadosAtividade() {
-    const nome = document.getElementById('titulo-atividade').value;
-    const desc = document.getElementById('descricao').value;
+    const nome = document.getElementById('titulo-atividade').value.trim();
+    const desc = document.getElementById('descricao').value.trim();
     const data_Inicio = document.getElementById('dataInicial').value;
     const data_Final = document.getElementById('dataFinal').value;
-    const notificacoes = document.getElementById('flexSwitchCheckDefault').checked ? 1 : 0;
 
     const atividadesContainer = document.getElementById('atividadesContainer');
     const subtarefas = [];
+
     atividadesContainer.querySelectorAll('.form-check').forEach(formCheck => {
         const checkbox = formCheck.querySelector('.form-check-input');
         const inputSubtarefa = formCheck.querySelector('.subtarefa');
-        subtarefas.push({
-            id: parseInt(checkbox.value),
-            nome: inputSubtarefa.value,
-            concluida: checkbox.checked ? 1 : 0
-        });
-    });
+        const inputIdInvisivel = formCheck.querySelector('.id-subtarefa'); 
+        const nomeSubtarefa = inputSubtarefa.value.trim();
+        const idSubtarefa = inputIdInvisivel ? parseInt(inputIdInvisivel.value) : null; 
 
+        if (nomeSubtarefa !== '') { 
+            subtarefas.push({
+                id: isNaN(idSubtarefa) ? null : idSubtarefa, 
+                nome: nomeSubtarefa,
+                concluida: checkbox.checked ? 1 : 0
+            });
+        }
+    });
     return { nome, desc, data_Inicio, data_Final, subtarefas };
 }
-
-
-// document.getElementById('edit_btn').addEventListener('click', async (e) => {
-//     e.preventDefault();
-
-//     const atividadeId = getQueryParam('id');
-//     if (!atividadeId) {
-//         mostrarAlerta('ID da atividade não fornecido na URL.');
-//         return;
-//     }
-
-//     const dadosAtividade = coletarDadosAtividade();
-
-//     $('#loadingModal').modal('show');
-
-//     try {
-//         await salvarAtividade(atividadeId, dadosAtividade);
-//     } finally {
-//         $('#loadingModal').modal('hide');
-//     }
-// });
-
-// document.getElementById('btnExcluir').addEventListener('click', () => {
-//     $('#confirmDeleteModal').modal('show');
-// });
-
-// document.getElementById('confirmarExclusao').addEventListener('click', async () => {
-//     const atividadeId = getQueryParam('id');
-//     if (!atividadeId) {
-//         mostrarAlerta('ID da atividade não fornecido na URL.');
-//         return;
-//     }
-
-//     $('#confirmDeleteModal').modal('hide');
-//     $('#loadingModal').modal('show');
-
-//     try {
-//         await excluirAtividade(atividadeId);
-//     } finally {
-//         $('#loadingModal').modal('hide');
-//     }
-// });
-
-// document.getElementById('arquivo').addEventListener('change', function() {
-//     const nomeArquivo = document.getElementById('nome-arquivo');
-//     if (this.files.length > 0) {
-//         const nomes = Array.from(this.files).map(file => file.name).join(', ');
-//         nomeArquivo.textContent = nomes;
-//     } else {
-//         nomeArquivo.textContent = 'Nenhum arquivo escolhido';
-//     }
-// });
-

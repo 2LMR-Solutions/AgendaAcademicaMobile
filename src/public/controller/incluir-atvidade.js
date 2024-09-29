@@ -8,8 +8,6 @@ export async function cadastroATV() {
     let dataInicial = document.getElementById("dataInicial").value;
     let dataFinal = document.getElementById("dataFinal").value;
 
-    console.log(nomeATV);
-
     if (nomeATV === "") {
         showAlert('Insira um título');
         return;
@@ -29,21 +27,18 @@ export async function cadastroATV() {
     const ATV = new Atividade(nomeATV, desc, dataInicial, dataFinal);
     try {
         await ATV.cadastrar();
-        console.log("Atividade cadastrada com sucesso:", ATV.getID());
         const subtarefas = verificarSubtarefas(); 
         for (const subtarefa of subtarefas) {
             const { nome, concluida } = subtarefa;
             const novaSubtarefa = new Subtarefa(ATV.getID(), nome, concluida);
             if (await novaSubtarefa.cadastrar()) { 
-                console.log(`Subtarefa "${nome}" cadastrada com sucesso.`);
-            } else {
-                console.log(`Falha ao cadastrar a subtarefa "${nome}".`);
             }
         }
 
         await delay(200);
         if (document.body.id === "incluirATV-page") {
-            location.reload();
+            // location.reload();
+            window.location.href = '/index.html';
         }
     } catch (error) {
         console.error("Deu ruim no cadastro:", error);

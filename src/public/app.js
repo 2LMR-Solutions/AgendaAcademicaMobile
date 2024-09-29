@@ -5,6 +5,7 @@ import { cadastroATV } from "./controller/incluir-atvidade.js";
 import { buscarAtividades } from "./controller/preencherTelaInicial.js";
 import { iniciarSubtarefas } from "./views/tela incluir tarefa/IncrementSubtarefas.js";
 import { mostrarNomeArquivo } from "./views/IncluirTarefa.js";
+import { mostrarAlerta } from "./views/EditarTarefa.js";
 import { populaTela, editarAtividade, excluirATV, abrirmodalexclusao, coletarDadosAtividade, getQueryParam} from "./views/EditarTarefa.js";
 
 switch (document.body.id){
@@ -50,7 +51,22 @@ case "incluirATV-page":
               }
           
               const dadosAtividade = coletarDadosAtividade();
-              console.log(dadosAtividade);
+              const nome = document.getElementById('titulo-atividade').value.trim();
+              const data_Inicio = document.getElementById('dataInicial').value;
+              const data_Final = document.getElementById('dataFinal').value;
+
+              if (nome === "") {
+                mostrarAlerta('Insira um título');
+                  return null;
+              } 
+              if (data_Final === "") {
+                mostrarAlerta("Insira uma data final!");
+                  return null;
+              } 
+              if (new Date(data_Inicio) > new Date(data_Final)) {
+                mostrarAlerta("A data inicial não pode ser maior que a data final!");
+                  return null;
+              } 
               $('#loadingModal').modal('show');
           
               try {

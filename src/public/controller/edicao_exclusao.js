@@ -1,11 +1,10 @@
-import { mostrarAlerta } from "../views/EditarTarefa.js";
+import { mostrarAlerta, idsSubtarefasParaExcluir } from "../views/EditarTarefa.js";
 import { Atividade } from "../models/atividade_model.js";
 import { Subtarefa } from "../models/subtarefa_model.js";
 
 const API_URL = 'http://127.0.0.1:8000/api';
 
 export function fetchAtividade(id) {
-    console.log(`Buscando atividade com ID: ${id}`);
     return fetch(`${API_URL}/atividades/${id}`, {
         method: 'GET',
         headers: {
@@ -13,7 +12,6 @@ export function fetchAtividade(id) {
         }
     })
     .then(response => {
-        console.log('Status da resposta:', response.status);
         if (response.ok) {
             return response.json();
         } else {
@@ -22,12 +20,10 @@ export function fetchAtividade(id) {
         }
     })
     .then(data => {
-        console.log('Dados da atividade recebidos:', data);
         if (data.status) {
-            // Reconstrua o objeto Atividade com os dados recebidos
             const { nome, desc, data_Inicio, data_Final } = data.tarefa;
             const atividade = new Atividade(nome, desc, data_Inicio, data_Final);
-            atividade.setId(data.tarefa.id); // Se necessário, adicione um método para definir o ID
+            atividade.setId(data.tarefa.id); 
             return atividade;
         } else {
             throw new Error('Atividade não encontrada');
@@ -41,7 +37,6 @@ export function fetchAtividade(id) {
 }
 
 export async function fetchSubatividades(atividadeId) {
-    console.log(`Buscando subtarefas para a atividade ID: ${atividadeId}`);
     try {
         const response = await fetch(`${API_URL}/subtarefas/${atividadeId}`, {
             method: 'GET',
@@ -50,16 +45,12 @@ export async function fetchSubatividades(atividadeId) {
             }
         });
         
-        console.log('Status da resposta:', response.status);
-        
         if (response.ok) {
             const data = await response.json();
-            console.log('Dados das subtarefas recebidos:', data);
             if (data.status) {
-                // Reconstruir os objetos Subtarefa
                 const subtarefas = data.message.map(item => {
                     const subtarefa = new Subtarefa(item.idAtividade, item.nome, item.concluida);
-                    subtarefa.setId(item.id); // Setando o ID da subtarefa aqui
+                    subtarefa.setId(item.id);
                     return subtarefa;
                 });
                 return subtarefas;
@@ -77,9 +68,29 @@ export async function fetchSubatividades(atividadeId) {
     }
 }
 
-export async function salvarAtividade(atividadeId, dadosAtividade, subtarefasExistentes) {
+export async function excluirAtividade(atividadeId) {
     try {
-        // Enviar dados da atividade
+        const response = await fetch(`${API_URL}/atividades/${atividadeId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            const errorData = await response.json(); 
+            throw new Error(errorData.message || 'Erro ao excluir atividade');
+        }
+        const data = await response.json();
+        if (data.status) {
+            window.location.href = '/index.html';
+        } else {
+            throw new Error(data.message || 'Erro ao excluir atividade');
+        }
+    } catch (error) {
+        console.error(error);
+        mostrarAlerta('Erro ao excluir atividade.');
+    }
+}
+
+export async function salvarAtividade(atividadeId, dadosAtividade, subtarefasExistentes, novasSubtarefas) {
+    try {
         const response = await fetch(`${API_URL}/atividades/${atividadeId}`, {
             method: 'PUT',
             headers: {
@@ -95,27 +106,26 @@ export async function salvarAtividade(atividadeId, dadosAtividade, subtarefasExi
 
         const data = await response.json();
         if (data.status) {
-            // Verificar se dadosAtividade.subtarefas é um array
-            const idsNovasSubtarefas = Array.isArray(dadosAtividade.subtarefas) 
-                ? dadosAtividade.subtarefas.map(subtarefa => subtarefa.id) 
-                : []; // Fallback para um array vazio
+            const idsNovasSubtarefas = Array.isArray(novasSubtarefas)
+                ? novasSubtarefas.map(subtarefa => subtarefa.id)
+                : [];
 
-            // Excluir subtarefas que não estão mais na lista
-            for (const subtarefaExistente of (subtarefasExistentes || [])) { // Garante que subtarefasExistentes é um array
+            // Excluir subtarefas que foram removidas
+            for (const subtarefaId of idsSubtarefasParaExcluir) {
+                await excluirSubtarefa(atividadeId, subtarefaId);
+            }
+
+            for (const subtarefaExistente of (subtarefasExistentes || [])) {
                 if (!idsNovasSubtarefas.includes(subtarefaExistente.id)) {
-                    await excluirSubtarefa(atividadeId, subtarefaExistente.id); 
+                    await excluirSubtarefa(atividadeId, subtarefaExistente.id);
                 }
             }
 
-            // Atualizar ou adicionar novas subtarefas
-            await Promise.all(dadosAtividade.subtarefas.map(async (subtarefa) => {
+            await Promise.all(novasSubtarefas.map(async (subtarefa) => {
                 if (subtarefa.id) {
-                    await atualizarSubtarefa(atividadeId, subtarefa);
+                    await atualizarSubtarefa(subtarefa);
                 } else {
-                    await adicionarSubtarefa(atividadeId, {
-                        nome: subtarefa.nome,
-                        concluida: subtarefa.concluida
-                    });
+                    await adicionarSubtarefa(atividadeId, subtarefa);
                 }
             }));
 
@@ -130,85 +140,72 @@ export async function salvarAtividade(atividadeId, dadosAtividade, subtarefasExi
 }
 
 
-async function atualizarSubtarefa(atividadeId, subtarefa) {
+async function adicionarSubtarefa(idAtividade, subtarefa) {
+    const id = subtarefa.id
+    const nome = subtarefa.nome
+    const concluida = subtarefa.concluida
+
     try {
-        const response = await fetch(`${API_URL}/atividades/${atividadeId}/subtarefas/${subtarefa.id}`, {
-            method: 'PUT',
+        const response = await fetch(`${API_URL}/subtarefas`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(subtarefa)
+            body: JSON.stringify({ id, idAtividade, nome, concluida })
         });
-
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Erro ao atualizar subtarefa');
+            throw new Error('Erro ao adicionar subtarefa');
         }
+        return await response.json();
     } catch (error) {
         console.error(error);
-        mostrarAlerta(`Erro ao atualizar subtarefa: ${error.message}`);
+        mostrarAlerta('Erro ao adicionar subtarefa.');
     }
 }
 
-async function adicionarSubtarefa(atividadeId, subtarefaData) {
-    try {
-        const subtarefa = new Subtarefa(atividadeId, subtarefaData.nome, subtarefaData.concluida);
-        await subtarefa.cadastrar();
-    } catch (error) {
-        console.error(error);
-        mostrarAlerta(`Erro ao adicionar subtarefa: ${error.message}`);
+async function atualizarSubtarefa(subtarefa) {
+    const id = subtarefa.id ;
+    const nome = subtarefa.nome
+    const concluida = subtarefa.concluida
+
+try {
+    const response = await fetch(`${API_URL}/subtarefas/${id}/update`, { 
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nome, concluida })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro ao atualizar subtarefa');
     }
+
+    return await response.json();
+} catch (error) {
+    console.error("Erro ao atualizar subtarefa:", error);
+    mostrarAlerta('Erro ao atualizar subtarefa.');
+}
 }
 
 async function excluirSubtarefa(atividadeId, subtarefaId) {
     try {
-        const subtarefa = new Subtarefa(atividadeId, '', false);
-        subtarefa.setId(subtarefaId); 
+        const response = await fetch(`${API_URL}/subtarefas/${subtarefaId}`, {
+            method: 'DELETE', // Método para exclusão
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-        // Chama o método de exclusão
-        await subtarefa.excluir();
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Erro ao excluir subtarefa');
+        }
+
         mostrarAlerta('Subtarefa excluída com sucesso!', 'success');
     } catch (error) {
-        console.error(error);
+        console.error("Erro ao excluir subtarefa:", error);
         mostrarAlerta('Erro ao excluir subtarefa.');
     }
 }
-
-
-export async function obterSubtarefasExistentes(atividadeId) {
-    try {
-        const response = await fetch(`${API_URL}/subtarefas/${atividadeId}`);
-        if (!response.ok) {
-            throw new Error("Erro ao buscar subtarefas existentes.");
-        }
-        const data = await response.json();
-        return data.subtarefas || []; // Retorne um array vazio se não houver subtarefas
-    } catch (error) {
-        console.error("Erro ao obter subtarefas existentes:", error);
-        return []; // Retorne um array vazio em caso de erro
-    }
-}
-
-
-export async function excluirAtividade(atividadeId) {
-    try {
-        const response = await fetch(`${API_URL}/atividades/${atividadeId}`, {
-            method: 'DELETE',
-        });
-        if (!response.ok) {
-            const errorData = await response.json(); 
-            throw new Error(errorData.message || 'Erro ao excluir atividade');
-        }
-        const data = await response.json();
-        if (data.status) {
-            mostrarAlerta('Atividade excluída com sucesso!', 'success');
-            window.location.href = '/src/public/views/tela agenda/Agenda.html';
-        } else {
-            throw new Error(data.message || 'Erro ao excluir atividade');
-        }
-    } catch (error) {
-        console.error(error);
-        mostrarAlerta('Erro ao excluir atividade.');
-    }
-}
-
