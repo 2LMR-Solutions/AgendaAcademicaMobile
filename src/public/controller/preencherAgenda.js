@@ -19,23 +19,13 @@ function buscarAtividades() {
     });
 }
 
+// Preencher tarefas no calendário usando o objeto atividade
 export function preencherTarefasNoCalendario() {
     buscarAtividades()
     .then(data => {
         if (data && data.status && Array.isArray(data.message)) {
             data.message.forEach(atividade => {
-                const nomeTarefa = atividade.nome; 
-                const dataFinal = atividade.data_Final; 
-
-                if (dataFinal) {
-                    const data = new Date(dataFinal + 'T00:00:00'); 
-                    
-                    const dia = data.getUTCDate();
-                    const mes = data.getUTCMonth() + 1;
-                    const ano = data.getUTCFullYear();
-                    
-                    criarTarefa(nomeTarefa, dia, mes, ano);
-                }
+                criarTarefa(atividade); // Apenas chama criarTarefa, que agora não abre o modal automaticamente
             });
         } else {
             console.warn('Dados das atividades não estão no formato esperado.');
@@ -45,3 +35,11 @@ export function preencherTarefasNoCalendario() {
         console.error('Erro ao preencher o calendário:', error);
     });
 }
+
+// Lógica para abrir o modal apenas ao clicar em um dia do calendário
+document.querySelectorAll('.dia-calendario').forEach(diaElement => {
+    diaElement.addEventListener('click', () => {
+        const dia = diaElement.getAttribute('data-dia'); // Supondo que você tenha um atributo data-dia
+        abrirModalTarefas(dia); // Abre o modal somente quando o dia é clicado
+    });
+});

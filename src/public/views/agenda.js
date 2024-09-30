@@ -3,13 +3,22 @@ const currentDate = new Date();
 let selectedDate = new Date(currentDate);
 
 let tarefas = {};
-export function criarTarefa(nome, dia, mes, ano) {
+export function criarTarefa(atividade) {
+    const { nome, data_Final, id } = atividade; // Extraindo nome, data_Final e id do objeto atividade
+    const data = new Date(data_Final + 'T00:00:00'); // Convertendo a data para um objeto Date
+    const dia = data.getUTCDate();
+    const mes = data.getUTCMonth() + 1;
+    const ano = data.getFullYear();
+
     const dateStr = `${ano}-${mes}-${dia}`;
     if (!tarefas[dateStr]) {
         tarefas[dateStr] = [];
     }
 
-    tarefas[dateStr].push(nome);
+    // Adicionando a tarefa ao array do dia
+    tarefas[dateStr].push({ nome, id }); // Agora armazenamos um objeto com nome e id
+
+    // Removendo a chamada para abrirModalTarefas(dia)
     renderizarCalendario(selectedDate);
 }
 
@@ -55,7 +64,13 @@ function abrirModalTarefas(dia) {
     const modalBody = document.querySelector("#modalTarefas .modal-body");
 
     if (tarefasDoDia.length > 0) {
-        modalBody.innerHTML = tarefasDoDia.map(tarefa => `<p>${tarefa}</p>`).join('') + ` 
+        modalBody.innerHTML = tarefasDoDia.map(tarefa => `
+            <p>
+                <a href="http://127.0.0.1:5500/src/public/views/tela%20editar%20tarefa/EditarTarefa.html?id=${tarefa.id}" class="nav-link">
+                    ${tarefa.nome}
+                </a>
+            </p>
+        `).join('') + ` 
             <a href="/src/public/views/tela incluir tarefa/IncluirTarefa.html" class="nav-link BotaoOutraTarefa">
                 <button id="adicionarTarefa" class="btn btn-primary mt-3">Adicionar novas tarefas</button>
             </a>`;
