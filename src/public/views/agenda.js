@@ -4,8 +4,8 @@ let selectedDate = new Date(currentDate);
 
 let tarefas = {};
 export function criarTarefa(atividade) {
-    const { nome, data_Final, id } = atividade; // Extraindo nome, data_Final e id do objeto atividade
-    const data = new Date(data_Final + 'T00:00:00'); // Convertendo a data para um objeto Date
+    const { nome, data_Final, id } = atividade; 
+    const data = new Date(data_Final + 'T00:00:00'); 
     const dia = data.getUTCDate();
     const mes = data.getUTCMonth() + 1;
     const ano = data.getFullYear();
@@ -15,10 +15,8 @@ export function criarTarefa(atividade) {
         tarefas[dateStr] = [];
     }
 
-    // Adicionando a tarefa ao array do dia
-    tarefas[dateStr].push({ nome, id }); // Agora armazenamos um objeto com nome e id
+    tarefas[dateStr].push({ nome, id }); 
 
-    // Removendo a chamada para abrirModalTarefas(dia)
     renderizarCalendario(selectedDate);
 }
 
