@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/src/public/assets/logoIconBranco.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="EditarTarefa.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <title>Agenda Acadêmica</title>
+</head>
+<body id="editATV-page">
+    <header>
+        <div class="container py-3">
+            <div>
+                <input id="titulo-atividade" placeholder="Título da Tarefa" autocomplete="off" class="tituloTarefa">
+            </div>
+        </div>
+    </header>
+    <div class="componentes_tarefa">
+        <div class="descricao">
+            <span class="material-symbols-outlined icon">
+                edit_note
+            </span>
+            <textarea type="input" id="descricao" autocomplete="off" placeholder="Adicionar uma descrição"></textarea>
+        </div>
+        <hr>
+        <div class="componente">
+            <span class="material-symbols-outlined icon" id="calendar-icon">
+                event
+            </span>
+            <form class="SelectData">
+                <label for="dataInicial">
+                    <div class="Data">
+                        Data Inicial
+                    </div>
+                </label>
+                <input class="campo_data" type="date" id="dataInicial" name="dataInicial">
+                <label for="dataFinal">
+                    <div class="Data">
+                        Data Final
+                    </div>
+                </label>
+                <input class="campo_data" type="date" id="dataFinal" name="dataFinal">
+            </form>
+        </div>
+        <hr>
+        <div class="componente">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Receber notificações</label>
+            </div>
+        </div>
+    </div>
+    <div class="container_atividades">
+        <div class="atividades" id="atividadesContainer">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+                <label class="labelSubtarefa" for="defaultCheck1">
+                    <input class="subtarefa" id="titulo-Subtarefa" autocomplete="off" placeholder="Subtarefa">
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="upload-container">
+        <div class="input-arquivo">
+            <label for="arquivo" class="upload-label"></label>
+            <label class="custom-file-upload">
+                Anexar arquivos
+                <input type="file" id="arquivo" class="upload-input" name="arquivo" multiple
+                    accept="image/*, .pdf, .docx, .xlsx">
+            </label>
+            <p id="nome-arquivo">Nenhum arquivo escolhido</p>
+        </div>
+    </div>
+    <div class="botoes">
+        <button id="edit_btn" class="btn btn-primary BotaoSalvar">Salvar</button>
+        <button id="btnExcluir" class="btn btn-danger BotaoExcluir">Excluir</button>
+    </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p>Aguarde, salvando dados...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir esta atividade? Esta ação não pode ser desfeita.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmarExclusao">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="offlineModal" tabindex="-1" aria-labelledby="offlineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="offlineModalLabel">Você está offline!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você perdeu a conexão com a Internet. Por favor, verifique sua conexão e tente novamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="customAlert" class="custom-alert" style="display: none;">
+        <div class="custom-alert-content">
+          <p id="customAlertMessage">Este é o alerta!</p>
+          <button id="customAlertClose" class="btn btn-primary">Fechar</button>
+        </div>
+    </div>
+    <footer>
+        <div class="acoes">
+            <a href="/index.html" class="nav-link">
+                <span class="material-symbols-outlined">home</span>
+            </a>
+            <a href="/src/public/views/tela agenda/Agenda.html" class="nav-link">
+                <span class="material-symbols-outlined">calendar_month</span>
+            </a>
+            <a href="/src/public/views/tela perfil/perfil.html" class="nav-link">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+        </div>
+    </footer>
+</body>
+<script type="module"> import '../../app.js' 
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+</html>
+

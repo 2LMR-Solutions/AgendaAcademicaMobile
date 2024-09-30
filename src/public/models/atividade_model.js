@@ -21,13 +21,13 @@ class Atividade{
       };
     
       try {
-        // Primeiro, cadastra a atividade
+        
         const responseAtividade = await fetch('http://127.0.0.1:8000/api/atividades', {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(ATVData) // Enviando os dados da atividade como JSON
+          body: JSON.stringify(ATVData) 
         });
     
         const resultAtividade = await responseAtividade.json();
@@ -37,27 +37,12 @@ class Atividade{
       }
     }
 
-    async carregar(id) {
-      try {
-        const response = await fetch(`URL_do_servidor/atividades/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-    
-        const result = await response.json();
-        console.log("Atividade carregada:", result);
-        return result; // Retorna a atividade carregada
-      } catch (error) {
-        console.error(`Erro ao carregar a atividade com id ${id}:`, error);
-      }
-    }
-
     getID(){
       return this.#id;
     }
-    
+    setId(id) {
+      this.#id = id;
+  }
 }
 
 export {Atividade}

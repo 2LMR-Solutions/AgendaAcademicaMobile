@@ -1,58 +1,64 @@
-class Subtarefa{
+class Subtarefa {
+  #id; 
+  idAtividade;
+  nome;
+  concluida;
 
+  constructor(idAtividade, nome, concluida) {
+      this.nome = nome;
+      this.idAtividade = idAtividade;
+      this.concluida = concluida;
+  }
 
-    #id; 
-    idAtividade;
-    nome;
-    concluida;
-
-    constructor(idAtividade, nome, concluida) {
-        this.nome = nome;
-        this.idAtividade = idAtividade;
-        this.concluida = concluida
-      }
-
-      async cadastrar() {
-        const SATVData = {
+  async cadastrar() {
+      const SATVData = {
           nome: this.nome,
           idAtividade: this.idAtividade,
           concluida: this.concluida
-        };
-      
-        try {
+      };
+    
+      try {
           // Primeiro, cadastra a atividade
           const responseAtividade = await fetch('http://127.0.0.1:8000/api/subtarefas', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(SATVData) // Enviando os dados da atividade como JSON
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(SATVData) // Enviando os dados da atividade como JSON
           });
-      
+    
           const resultSubtarefa = await responseAtividade.json();
-          this.#id = resultSubtarefa.tarefa.id
-        } catch (error) {
+          this.#id = resultSubtarefa.tarefa.id; // Atribui o ID retornado pela API
+      } catch (error) {
           console.error("Erro ao cadastrar a subtarefa: ", error);
-        }
       }
+  }
 
-      async carregar(id) {
-        try {
-          const response = await fetch(`URL_do_servidor/subtarefas/${id}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
-            }
+  async excluir() {
+      try {
+          const response = await fetch(`${API_URL}/atividades/${this.idAtividade}/subtarefas/${this.getId()}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json'
+              }
           });
-      
-          const result = await response.json();
-          console.log("Subtarefa carregada:", result);
-          return result; // Retorna a atividade carregada
-        } catch (error) {
-          console.error(`Erro ao carregar a subtarefa com id ${id}:`, error);
-        }
+  
+          if (!response.ok) {
+              throw new Error('Erro ao excluir a subtarefa');
+          }
+      } catch (error) {
+          console.error('Erro ao excluir subtarefa:', error);
+          throw error; // Propaga o erro para tratamento posterior
       }
-      
+  }
+
+  setId(id) {
+      this.#id = id;
+  }
+  
+  getId() {
+      return this.#id; 
+  }
 }
 
-export {Subtarefa}
+export { Subtarefa };

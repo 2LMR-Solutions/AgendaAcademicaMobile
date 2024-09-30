@@ -24,18 +24,7 @@ export function preencherTarefasNoCalendario() {
     .then(data => {
         if (data && data.status && Array.isArray(data.message)) {
             data.message.forEach(atividade => {
-                const nomeTarefa = atividade.nome; 
-                const dataFinal = atividade.data_Final; 
-
-                if (dataFinal) {
-                    const data = new Date(dataFinal + 'T00:00:00'); 
-                    
-                    const dia = data.getUTCDate();
-                    const mes = data.getUTCMonth() + 1;
-                    const ano = data.getUTCFullYear();
-                    
-                    criarTarefa(nomeTarefa, dia, mes, ano);
-                }
+                criarTarefa(atividade); 
             });
         } else {
             console.warn('Dados das atividades não estão no formato esperado.');
@@ -45,3 +34,10 @@ export function preencherTarefasNoCalendario() {
         console.error('Erro ao preencher o calendário:', error);
     });
 }
+
+document.querySelectorAll('.dia-calendario').forEach(diaElement => {
+    diaElement.addEventListener('click', () => {
+        const dia = diaElement.getAttribute('data-dia'); 
+        abrirModalTarefas(dia);
+    });
+});

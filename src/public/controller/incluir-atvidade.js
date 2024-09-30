@@ -8,18 +8,16 @@ export async function cadastroATV() {
     let dataInicial = document.getElementById("dataInicial").value;
     let dataFinal = document.getElementById("dataFinal").value;
 
-    console.log(nomeATV);
-
     if (nomeATV === "") {
-        alert("Insira um título");
+        showAlert('Insira um título');
         return;
     } 
     if (dataFinal === "") {
-        alert("Insira uma data Final!");
+        showAlert("Insira uma data Final!");
         return;
     } 
     if (new Date(dataInicial) > new Date(dataFinal)) {
-        alert("A data inicial não pode ser maior que a data final!");
+        showAlert("A data inicial não pode ser maior que a data final!");
         return;
     } 
 
@@ -29,21 +27,18 @@ export async function cadastroATV() {
     const ATV = new Atividade(nomeATV, desc, dataInicial, dataFinal);
     try {
         await ATV.cadastrar();
-        console.log("Atividade cadastrada com sucesso:", ATV.getID());
         const subtarefas = verificarSubtarefas(); 
         for (const subtarefa of subtarefas) {
             const { nome, concluida } = subtarefa;
             const novaSubtarefa = new Subtarefa(ATV.getID(), nome, concluida);
             if (await novaSubtarefa.cadastrar()) { 
-                console.log(`Subtarefa "${nome}" cadastrada com sucesso.`);
-            } else {
-                console.log(`Falha ao cadastrar a subtarefa "${nome}".`);
             }
         }
 
         await delay(200);
         if (document.body.id === "incluirATV-page") {
-            location.reload();
+            // location.reload();
+            window.location.href = '/index.html';
         }
     } catch (error) {
         console.error("Deu ruim no cadastro:", error);
@@ -70,3 +65,16 @@ function verificarSubtarefas() {
 
     return subtarefas;
 }
+
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const customAlertMessage = document.getElementById('customAlertMessage');
+
+    customAlertMessage.textContent = message;
+    customAlert.style.display = 'block';
+
+    document.getElementById('customAlertClose').onclick = function() {
+      customAlert.style.display = 'none';
+    };
+}
+  
